@@ -32,3 +32,18 @@ void GameplayController::render()
 {
 	board->render();
 }
+
+void GameplayController::restart()
+{
+	board->resetBoard();
+}
+
+float GameplayController::getMinesCount()
+{
+	return board->getMinesCount();
+}
+
+float GameplayController::getRemainingTimer()
+{
+	return move_timer;
+}

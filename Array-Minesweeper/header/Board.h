@@ -9,9 +9,10 @@ class Board
 private:
     const int number_of_rows = 9;
     const int number_of_colums = 9;
+    const int mines_count = 8;
 
-    const float top_offset = 274.f;
-    const float left_offset = 583.f;
+    const float cells_top_offset = 274.f;
+    const float cells_left_offset = 583.f;
 
     const float board_height_offset = 325.f;
     const float board_width_offset = 115.f;
@@ -56,6 +57,7 @@ private:
     void drawCell(int row, int col);
     void flagCell(int x, int y);
     void openCell(int x, int y);
+    void resetCell(int row, int col);
     void deleteCells();
 
 public:
@@ -65,4 +67,8 @@ public:
     void initialize();
     void update();
     void render();
+
+    void resetBoard();
+
+    int getMinesCount();
 };

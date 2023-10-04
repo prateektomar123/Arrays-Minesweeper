@@ -7,6 +7,7 @@ class GameplayController
 {
 private:
 	Board* board;
+	float move_timer = 30.f;
 
 	void createBoard();
 
@@ -17,4 +18,8 @@ public:
 	void initialize();
 	void update();
 	void render();
+
+	void restart();
+	float getMinesCount();
+	float getRemainingTimer();
 };

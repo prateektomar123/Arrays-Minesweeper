@@ -61,31 +61,39 @@ void GraphicService::initializeText()
 
 bool GraphicService::loadFont()
 {
-	return font.loadFromFile("assets/fonts/bubbleBobble.ttf");
+	return font_bubble_bobble.loadFromFile("assets/fonts/bubbleBobble.ttf") &&
+		   font_DS_DIGIB.loadFromFile("assets/fonts/DS_DIGIB.ttf");
 }
 
 void GraphicService::setupText()
 {
-	text.setFont(font);
+	text.setFont(font_bubble_bobble);
 	text.setCharacterSize(font_size);
 	text.setFillColor(sf::Color::White);
 }
 
-void GraphicService::drawText(sf::String text_value, sf::Vector2f text_position)
+void GraphicService::drawText(sf::String text_value, sf::Vector2f text_position, int text_font_size, FontType font_type, sf::Color color)
 {
+	text.setCharacterSize(text_font_size);
+	text.setFillColor(color);
+	setFont(font_type);
 	text.setString(text_value);
 	text.setPosition(text_position);
+
 	game_window->draw(text);
+
+	text.setCharacterSize(font_size);
+	text.setFillColor(sf::Color::White);
 }
 
-void GraphicService::drawText(sf::String text_value, float text_y_position, int text_font_size)
+void GraphicService::drawText(sf::String text_value, float text_y_position, int text_font_size, FontType font_type)
 {
 	text.setCharacterSize(text_font_size);
 	drawText(text_value, text_y_position);
 	text.setCharacterSize(font_size);
 }
 
-void GraphicService::drawText(sf::String text_value, float text_y_position)
+void GraphicService::drawText(sf::String text_value, float text_y_position, FontType font_type)
 {
 	text.setString(text_value);
 	setTextPosition(text_y_position);
@@ -98,4 +106,17 @@ void GraphicService::setTextPosition(float y_position)
 
 	float x_position = (game_window->getSize().x - textBounds.width) / 2;
 	text.setPosition(x_position, y_position);
+}
+
+void GraphicService::setFont(FontType font_type)
+{
+	switch (font_type)
+	{
+	case FontType::BUBBLE_BOBBLE:
+		text.setFont(font_bubble_bobble);
+		break;
+	case FontType::DS_DIGIB:
+		text.setFont(font_DS_DIGIB);
+		break;
+	}
 }

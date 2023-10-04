@@ -1,15 +1,17 @@
 #include "../header/Board.h"
 #include "../header/Cell.h"
-#include "../header/GameService.h"
 #include "../header/EventService.h"
 #include "../header/ServiceLocator.h"
 #include "../header/SoundService.h"
+#include "../header/GraphicService.h"
 
 Board::Board() : random_engine(random_device())
 {
     game_window = nullptr;
     b_left_mouse_button_pressed = false;
     b_right_mouse_button_pressed = false;
+
+    createCells();
 }
 
 Board::~Board()
@@ -21,9 +23,9 @@ void Board::initialize()
 {
     game_window = ServiceLocator::getInstance()->getGameWindow();
 
-    createCells();
     initializeBoardImage();
     initializeCellImage();
+    resetBoard();
 }
 
 void Board::createCells()
@@ -45,14 +47,7 @@ void Board::createCells()
 
 Cell* Board::createCell()
 {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomNumber = std::rand() % 9;
-
     Cell* cell = new Cell();
-
-    cell->setCellState(CellState::HIDDEN);
-    cell->setCellType(static_cast<CellType>(randomNumber));
-
     return cell;
 }
 
@@ -125,8 +120,8 @@ void Board::drawAllCells()
 
 void Board::drawCell(int row, int col)
 {
-    float x = left_offset + col * cell_width;
-    float y = top_offset + row * cell_height;
+    float x = cells_left_offset + col * cell_width;
+    float y = cells_top_offset + row * cell_height;
 
     int index = static_cast<int>(cells[row][col]->getCellType());
 
@@ -160,7 +155,7 @@ void Board::handleMouseInteractions()
         b_left_mouse_button_pressed = true;
     }
 
-    if (event_service->pressedRightMouseButton() && cellIndex.x != -1 && cellIndex.y != -1 && !b_right_mouse_button_pressed)
+    if (!b_right_mouse_button_pressed && event_service->pressedRightMouseButton() && cellIndex.x != -1 && cellIndex.y != -1)
     {  
         flagCell(cellIndex.x, cellIndex.y);
         b_right_mouse_button_pressed = true;
@@ -181,8 +176,8 @@ sf::Vector2i Board::getCellFromMousePosition()
 {
     sf::Vector2i mouse_position = sf::Mouse::getPosition(*game_window);
 
-    sf::Vector2f adjusted_mouse_position(static_cast<float>(mouse_position.x) - left_offset,
-        static_cast<float>(mouse_position.y) - top_offset);
+    sf::Vector2f adjusted_mouse_position(static_cast<float>(mouse_position.x) - cells_left_offset,
+        static_cast<float>(mouse_position.y) - cells_top_offset);
 
     // Calculate cell coordinates based on the adjusted mouse position
     int cell_column = static_cast<int>(adjusted_mouse_position.x / cell_width);
@@ -218,6 +213,31 @@ void Board::flagCell(int x, int y)
     }
 
     ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
+}
+
+int Board::getMinesCount()
+{
+    return mines_count;
+}
+
+void Board::resetBoard()
+{
+    for (int row = 0; row < number_of_rows; ++row)
+    {
+        for (int col = 0; col < number_of_colums; ++col)
+        {
+            resetCell(row, col);
+        }
+    }
+}
+
+void Board::resetCell(int row, int col)
+{
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+    int randomNumber = std::rand() % 9;
+
+    cells[row][col]->setCellState(CellState::HIDDEN);
+    cells[row][col]->setCellType(static_cast<CellType>(randomNumber));
 }
 
 void Board::deleteCells()
