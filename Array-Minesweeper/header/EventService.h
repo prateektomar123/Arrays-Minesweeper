@@ -8,11 +8,12 @@ private:
 	sf::Event game_event;
 	sf::RenderWindow* game_window;
 
+	bool is_mouse_button_pressed;
+
 	bool isGameWindowOpen();
 	bool gameWindowWasClosed();
 	bool hasQuitGame();
 	bool isKeyboardEvent();
-	bool pressedEscapeKey();
 
 public:
 	EventService();
@@ -20,4 +21,8 @@ public:
 
 	void initialize();
 	void processEvents();
+	
+	bool pressedEscapeKey();
+	bool pressedLeftMouseButton();
+	bool pressedRightMouseButton();
 };

@@ -17,7 +17,9 @@ void SoundService::loadBackgroundMusicFromFile()
 void SoundService::loadSoundFromFile()
 {
 	if (!buffer_button_click.loadFromFile("assets/sounds/button_click_sound.wav"))
-		printf("Error loading background music file");
+		printf("Error loading sound file");
+	if (!buffer_flag.loadFromFile("assets/sounds/flag_sound.wav"))
+		printf("Error loading sound file");
 }
 
 void SoundService::playSound(SoundType soundType)
@@ -26,6 +28,9 @@ void SoundService::playSound(SoundType soundType)
 	{
 	case SoundType::BUTTON_CLICK:
 		sound_effect.setBuffer(buffer_button_click);
+		break;
+	case SoundType::FLAG:
+		sound_effect.setBuffer(buffer_flag);
 		break;
 	default:
 		printf("Invalid sound type");

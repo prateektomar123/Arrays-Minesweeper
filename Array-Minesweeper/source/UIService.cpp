@@ -27,7 +27,6 @@ UIService::~UIService()
 void UIService::initialize()
 {
 	game_window = ServiceLocator::getInstance()->getGameWindow();
-
 	initializeControllers();
 }
 
