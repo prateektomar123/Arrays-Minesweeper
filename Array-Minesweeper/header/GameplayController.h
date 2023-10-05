@@ -7,7 +7,6 @@ class GameplayController
 {
 private:
 	Board* board;
-	float move_timer = 30.f;
 
 	void createBoard();
 

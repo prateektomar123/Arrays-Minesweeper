@@ -146,6 +146,7 @@
     <ClCompile Include="source\ServiceLocator.cpp" />
     <ClCompile Include="source\SoundService.cpp" />
     <ClCompile Include="source\SplashScreenUIController.cpp" />
+    <ClCompile Include="source\TimeService.cpp" />
     <ClCompile Include="source\UIService.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="header\ServiceLocator.h" />
     <ClInclude Include="header\SoundService.h" />
     <ClInclude Include="header\SplashScreenUIController.h" />
+    <ClInclude Include="header\TimeService.h" />
     <ClInclude Include="header\UIService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

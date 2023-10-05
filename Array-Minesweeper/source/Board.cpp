@@ -4,12 +4,13 @@
 #include "../header/ServiceLocator.h"
 #include "../header/SoundService.h"
 #include "../header/GraphicService.h"
+#include "../header/TimeService.h"
 
 Board::Board() : random_engine(random_device())
 {
     game_window = nullptr;
-    b_left_mouse_button_pressed = false;
-    b_right_mouse_button_pressed = false;
+    b_left_mouse_button_pressed = true;
+    b_right_mouse_button_pressed = true;
     
     createCells();
 }
@@ -99,12 +100,23 @@ void Board::scaleCellImage()
 void Board::update()
 {
     handleMouseInteractions();
+    updateMoveTimer();
 }
 
 void Board::render()
 {
     game_window->draw(board_sprite);
     drawAllCells();
+}
+
+void Board::updateMoveTimer()
+{
+    move_timer -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+    if (move_timer <= 1)
+    {
+        resetBoard();
+    }
 }
 
 void Board::drawAllCells()
@@ -208,7 +220,7 @@ void Board::flagCell(int x, int y)
 
 void Board::openCell(int x, int y)
 {
-    if (cells[x][y]->getCellState() != CellState::FLAGGED)
+    if (cells[x][y]->getCellState() != CellState::FLAGGED || cells[x][y]->getCellState() != CellState::OPEN)
     {
         if (b_first_click)
         {
@@ -226,6 +238,7 @@ void Board::openCell(int x, int y)
             break;
         }
 
+        move_timer = max_move_time;
         ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
     }
 }
@@ -315,6 +328,11 @@ int Board::getMinesCount()
     return mines_count;
 }
 
+float Board::getMoveTimer()
+{
+    return move_timer;
+}
+
 void Board::resetBoard()
 {
     for (int row = 0; row < number_of_rows; ++row)
@@ -326,6 +344,7 @@ void Board::resetBoard()
     }
 
     b_first_click = true;
+    move_timer = max_move_time;
 }
 
 void Board::resetCell(int row, int col)

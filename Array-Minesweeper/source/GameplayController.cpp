@@ -45,5 +45,5 @@ float GameplayController::getMinesCount()
 
 float GameplayController::getRemainingTimer()
 {
-	return move_timer;
+	return board->getMoveTimer();
 }
