@@ -10,7 +10,7 @@ Board::Board() : random_engine(random_device())
     game_window = nullptr;
     b_left_mouse_button_pressed = false;
     b_right_mouse_button_pressed = false;
-
+    
     createCells();
 }
 
@@ -191,15 +191,6 @@ sf::Vector2i Board::getCellFromMousePosition()
     return sf::Vector2i(-1, -1);
 }
 
-void Board::openCell(int x, int y)
-{
-    if (cells[x][y]->getCellState() != CellState::FLAGGED)
-    {
-        cells[x][y]->setCellState(CellState::OPEN);
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-    }
-}
-
 void Board::flagCell(int x, int y)
 {
     switch(cells[x][y]->getCellState())
@@ -213,6 +204,110 @@ void Board::flagCell(int x, int y)
     }
 
     ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
+}
+
+void Board::openCell(int x, int y)
+{
+    if (cells[x][y]->getCellState() != CellState::FLAGGED)
+    {
+        if (b_first_click)
+        {
+            populateBoard(x, y);
+            b_first_click = false;
+        }
+
+        switch (cells[x][y]->getCellType())
+        {
+        case::CellType::EMPTY:
+            openEmptyCells(x, y);
+            break;
+        default:
+            cells[x][y]->setCellState(CellState::OPEN);
+            break;
+        }
+
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+    }
+}
+
+void Board::populateBoard(int x, int y)
+{
+    // Co-ordinate distribution i.e. selecting random position for mines.
+    std::uniform_int_distribution<int> x_distribution(0, number_of_colums - 1);
+    std::uniform_int_distribution<int> y_distribution(0, number_of_rows - 1);
+
+    // Generate mines.
+    for (int a = 0; a < mines_count; a++)
+    {
+        int i = static_cast<int>(x_distribution(random_engine));
+        int j = static_cast<int>(y_distribution(random_engine));
+
+        // If the cell is already mine or it's a cell that the player wants to open.
+        if (cells[i][j]->getCellType() == CellType::MINE || (x == i && y == j))
+        {
+            a--;
+        }
+        else
+        {
+            cells[i][j]->setCellType(CellType::MINE);
+        }
+    }
+
+    for(int a = 0; a < number_of_rows; a++)
+    {
+        for (int b = 0; b < number_of_colums; b++)
+        {
+            if (cells[a][b]->getCellType() != CellType::MINE)
+            {
+                CellType type = static_cast<CellType>(countMinesAround(a, b));
+                cells[a][b]->setCellType(type);
+            }
+        }
+    }
+}
+
+void Board::openEmptyCells(int x, int y)
+{
+    if (cells[x][y]->getCellState() == CellState::OPEN || cells[x][y]->getCellType() != CellType::EMPTY) return;
+
+    cells[x][y]->setCellState(CellState::OPEN);
+
+    for (int a = -1; a < 2; a++)
+    {
+        for (int b = -1; b < 2; b++)
+        {
+            // Check for cells inside grid.
+            if ((a == 0 && b == 0) || (a + x < 0 || b + y < 0 || number_of_colums == a + x || number_of_rows == b + y))
+            {
+                continue;
+            }
+
+            openEmptyCells(a + x, b + y);
+        }
+    }
+}
+
+int Board::countMinesAround(int x, int y)
+{
+    int mines_around = 0;
+
+    for (int a = -1; a < 2; a++)
+    {
+        for (int b = -1; b < 2; b++)
+        {
+            if ((a == 0 && b == 0) || (a + x < 0 || b + y < 0 || number_of_colums == a + x || number_of_rows == b + y))
+            {
+                continue;
+            }
+
+            if (cells[a + x][b + y]->getCellType() == CellType::MINE)
+            {
+                mines_around++;
+            }
+        }
+    }
+
+    return mines_around;
 }
 
 int Board::getMinesCount()
@@ -229,15 +324,14 @@ void Board::resetBoard()
             resetCell(row, col);
         }
     }
+
+    b_first_click = true;
 }
 
 void Board::resetCell(int row, int col)
 {
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomNumber = std::rand() % 9;
-
     cells[row][col]->setCellState(CellState::HIDDEN);
-    cells[row][col]->setCellType(static_cast<CellType>(randomNumber));
+    cells[row][col]->setCellType(static_cast<CellType>(CellType::EMPTY));
 }
 
 void Board::deleteCells()

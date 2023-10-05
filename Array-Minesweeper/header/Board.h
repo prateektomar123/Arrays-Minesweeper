@@ -28,6 +28,7 @@ private:
 
     bool b_left_mouse_button_pressed;
     bool b_right_mouse_button_pressed;
+    bool b_first_click;
 
     std::vector<std::vector<Cell*>> cells;
     sf::RenderWindow* game_window;
@@ -57,6 +58,9 @@ private:
     void drawCell(int row, int col);
     void flagCell(int x, int y);
     void openCell(int x, int y);
+    void openEmptyCells(int x, int y);
+    void populateBoard(int x, int y);
+    int countMinesAround(int x, int y);
     void resetCell(int row, int col);
     void deleteCells();
 
@@ -69,6 +73,5 @@ public:
     void render();
 
     void resetBoard();
-
     int getMinesCount();
 };
