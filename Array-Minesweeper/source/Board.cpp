@@ -115,7 +115,14 @@ void Board::updateMoveTimer()
 
     if (move_timer <= 1)
     {
-        resetBoard();
+        if (b_game_over)
+        {
+            resetBoard();
+        }
+        else
+        {
+            gameOver();
+        }
     }
 }
 
@@ -211,9 +218,11 @@ void Board::flagCell(int x, int y)
     {
     case::CellState::FLAGGED:
         cells[x][y]->setCellState(CellState::HIDDEN);
+        flagged_cells--;
         break;
     case::CellState::HIDDEN:
         cells[x][y]->setCellState(CellState::FLAGGED);
+        flagged_cells++;
         break;
     }
 
@@ -343,7 +352,7 @@ void Board::openAllCells()
 
 int Board::getMinesCount()
 {
-    return mines_count;
+    return mines_count - flagged_cells;
 }
 
 float Board::getMoveTimer()
@@ -369,9 +378,15 @@ void Board::resetBoard()
         }
     }
 
+    resetVariables();
+}
+
+void Board::resetVariables()
+{
     b_game_over = false;
     b_first_click = true;
     move_timer = max_move_time;
+    flagged_cells = 0;
 }
 
 void Board::resetCell(int row, int col)

@@ -11,7 +11,7 @@ private:
     const int number_of_colums = 9;
     const int mines_count = 8;
     const float max_move_time = 31.f;
-    const float restart_time = 6.f;
+    const float restart_time = 11.f;
 
     const float cells_top_offset = 274.f;
     const float cells_left_offset = 583.f;
@@ -29,6 +29,7 @@ private:
     float cell_height;
 
     float move_timer;
+    int flagged_cells;
 
     bool b_left_mouse_button_pressed;
     bool b_right_mouse_button_pressed;
@@ -70,6 +71,7 @@ private:
     int countMinesAround(int x, int y);
     void gameOver();
     void resetCell(int row, int col);
+    void resetVariables();
     void deleteCells();
 
 public:
