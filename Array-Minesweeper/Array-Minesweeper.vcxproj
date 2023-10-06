@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\Cell.cpp" />
+    <ClCompile Include="source\CreditsScreenUIController.cpp" />
     <ClCompile Include="source\EventService.cpp" />
     <ClCompile Include="source\GameplayController.cpp" />
     <ClCompile Include="source\GameplayUIController.cpp" />
@@ -152,6 +153,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header\Cell.h" />
+    <ClInclude Include="header\CreditsScreenUIController.h" />
     <ClInclude Include="header\EventService.h" />
     <ClInclude Include="header\GameplayController.h" />
     <ClInclude Include="header\GameplayUIController.h" />

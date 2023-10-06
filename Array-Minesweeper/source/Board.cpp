@@ -5,6 +5,7 @@
 #include "../header/SoundService.h"
 #include "../header/GraphicService.h"
 #include "../header/TimeService.h"
+#include "../header/GameService.h"
 
 Board::Board() : random_engine(random_device())
 {
@@ -117,7 +118,7 @@ void Board::updateMoveTimer()
     {
         if (b_game_over)
         {
-            resetBoard();
+            GameService::setGameState(GameState::CREDITS);
         }
         else
         {

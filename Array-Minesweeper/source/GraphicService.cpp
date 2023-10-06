@@ -98,6 +98,7 @@ void GraphicService::drawText(sf::String text_value, float text_y_position, Font
 {
 	text.setString(text_value);
 	setTextPosition(text_y_position);
+	setFont(font_type);
 	game_window->draw(text);
 }
 

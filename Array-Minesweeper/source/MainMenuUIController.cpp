@@ -3,6 +3,7 @@
 #include "../header/GraphicService.h"
 #include "../header/SoundService.h"
 #include "../header/Instructions.h"
+#include "../header/GameplayService.h"
 
 MainMenuUIController::MainMenuUIController()
 {
@@ -182,6 +183,7 @@ void MainMenuUIController::onClickPlayButton()
 {
     ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
     GameService::setGameState(GameState::GAMEPLAY);
+    ServiceLocator::getInstance()->getGameplayService()->startGame();
 }
 
 void MainMenuUIController::onClickInstructionButton()

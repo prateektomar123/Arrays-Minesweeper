@@ -18,5 +18,7 @@ public:
 	void update();
 	void render();
 
+	void startGame();
+
 	GameplayController* getGameplayController();
 };

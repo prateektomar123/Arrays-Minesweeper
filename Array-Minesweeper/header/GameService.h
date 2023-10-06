@@ -7,6 +7,7 @@ enum class GameState
 	SPLASH_SCREEN,
 	MAIN_MENU,
 	GAMEPLAY,
+	CREDITS,
 };
 
 class GameService

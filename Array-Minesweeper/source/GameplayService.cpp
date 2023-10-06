@@ -43,6 +43,11 @@ void GameplayService::render()
 	}
 }
 
+void GameplayService::startGame()
+{
+	gameplay_controller->restart();
+}
+
 GameplayController* GameplayService::getGameplayController()
 {
 	return gameplay_controller;

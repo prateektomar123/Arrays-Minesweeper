@@ -4,12 +4,14 @@
 #include "../header/MainMenuUIController.h"
 #include "../header/SplashScreenUIController.h"
 #include "../header/GameplayUIController.h"
+#include "../header/CreditsScreenUIController.h"
 
 UIService::UIService() 
 { 
 	splash_screen_controller = nullptr;
 	main_menu_controller = nullptr;
 	gameplay_ui_controller = nullptr;
+	credits_screen_ui_controller = nullptr;
 	game_window = nullptr;
 
 	createControllers();
@@ -20,6 +22,7 @@ void UIService::createControllers()
 	splash_screen_controller = new SplashScreenUIController();
 	main_menu_controller = new MainMenuUIController();
 	gameplay_ui_controller = new GameplayUIController();
+	credits_screen_ui_controller = new CreditsScreenUIController();
 }
 
 UIService::~UIService()
@@ -46,6 +49,9 @@ void UIService::update()
 	case GameState::GAMEPLAY:
 		gameplay_ui_controller->update();
 		break;
+	case GameState::CREDITS:
+		credits_screen_ui_controller->update();
+		break;
 	}
 }
 
@@ -62,6 +68,9 @@ void UIService::render()
 	case GameState::GAMEPLAY:
 		gameplay_ui_controller->render();
 		break;
+	case GameState::CREDITS:
+		credits_screen_ui_controller->render();
+		break;
 	}
 }
 
@@ -70,6 +79,7 @@ void UIService::initializeControllers()
 	splash_screen_controller->initialize();
 	main_menu_controller->initialize();
 	gameplay_ui_controller->initialize();
+	credits_screen_ui_controller->initialize();
 }
 
 void UIService::destroy()
@@ -77,4 +87,5 @@ void UIService::destroy()
 	delete(splash_screen_controller);
 	delete(main_menu_controller);
 	delete(gameplay_ui_controller);
+	delete(credits_screen_ui_controller);
 }

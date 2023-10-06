@@ -4,6 +4,7 @@
 class SplashScreenUIController;
 class MainMenuUIController;
 class GameplayUIController;
+class CreditsScreenUIController;
 
 class UIService
 {
@@ -11,6 +12,7 @@ private:
 	SplashScreenUIController* splash_screen_controller;
 	MainMenuUIController* main_menu_controller;
 	GameplayUIController* gameplay_ui_controller;
+	CreditsScreenUIController* credits_screen_ui_controller;
 
 	sf::RenderWindow* game_window;
 
