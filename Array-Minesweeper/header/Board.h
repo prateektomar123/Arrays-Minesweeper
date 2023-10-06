@@ -11,6 +11,7 @@ private:
     const int number_of_colums = 9;
     const int mines_count = 8;
     const float max_move_time = 31.f;
+    const float restart_time = 6.f;
 
     const float cells_top_offset = 274.f;
     const float cells_left_offset = 583.f;
@@ -32,6 +33,7 @@ private:
     bool b_left_mouse_button_pressed;
     bool b_right_mouse_button_pressed;
     bool b_first_click;
+    bool b_game_over;
 
     std::vector<std::vector<Cell*>> cells;
     sf::RenderWindow* game_window;
@@ -63,8 +65,10 @@ private:
     void flagCell(int x, int y);
     void openCell(int x, int y);
     void openEmptyCells(int x, int y);
+    void openAllCells();
     void populateBoard(int x, int y);
     int countMinesAround(int x, int y);
+    void gameOver();
     void resetCell(int row, int col);
     void deleteCells();
 

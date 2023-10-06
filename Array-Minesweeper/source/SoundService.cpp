@@ -20,6 +20,8 @@ void SoundService::loadSoundFromFile()
 		printf("Error loading sound file");
 	if (!buffer_flag.loadFromFile("assets/sounds/flag_sound.wav"))
 		printf("Error loading sound file");
+	if (!buffer_explosion.loadFromFile("assets/sounds/explosion_sound.wav"))
+		printf("Error loading sound file");
 }
 
 void SoundService::playSound(SoundType soundType)
@@ -31,6 +33,9 @@ void SoundService::playSound(SoundType soundType)
 		break;
 	case SoundType::FLAG:
 		sound_effect.setBuffer(buffer_flag);
+		break;
+	case SoundType::EXPLOSION:
+		sound_effect.setBuffer(buffer_explosion);
 		break;
 	default:
 		printf("Invalid sound type");

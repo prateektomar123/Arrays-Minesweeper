@@ -158,6 +158,8 @@ void Board::drawCell(int row, int col)
 
 void Board::handleMouseInteractions()
 {
+    if (b_game_over) return;
+
     EventService* event_service = ServiceLocator::getInstance()->getEventService();
     sf::Vector2i cellIndex = getCellFromMousePosition();
 
@@ -220,7 +222,7 @@ void Board::flagCell(int x, int y)
 
 void Board::openCell(int x, int y)
 {
-    if (cells[x][y]->getCellState() != CellState::FLAGGED || cells[x][y]->getCellState() != CellState::OPEN)
+    if (cells[x][y]->getCellState() != CellState::FLAGGED && cells[x][y]->getCellState() != CellState::OPEN)
     {
         if (b_first_click)
         {
@@ -232,14 +234,19 @@ void Board::openCell(int x, int y)
         {
         case::CellType::EMPTY:
             openEmptyCells(x, y);
+            move_timer = max_move_time;
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            break;
+        case::CellType::MINE:
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
+            gameOver();
             break;
         default:
             cells[x][y]->setCellState(CellState::OPEN);
+            move_timer = max_move_time;
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
             break;
-        }
-
-        move_timer = max_move_time;
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+        } 
     }
 }
 
@@ -323,6 +330,17 @@ int Board::countMinesAround(int x, int y)
     return mines_around;
 }
 
+void Board::openAllCells()
+{
+    for (int a = 0; a < number_of_rows; ++a)
+    {
+        for (int b = 0; b < number_of_colums; ++b)
+        {
+            cells[a][b]->setCellState(CellState::OPEN);
+        }
+    }
+}
+
 int Board::getMinesCount()
 {
     return mines_count;
@@ -331,6 +349,14 @@ int Board::getMinesCount()
 float Board::getMoveTimer()
 {
     return move_timer;
+}
+
+void Board::gameOver()
+{
+    openAllCells();
+
+    b_game_over = true;
+    move_timer = restart_time;
 }
 
 void Board::resetBoard()
@@ -343,6 +369,7 @@ void Board::resetBoard()
         }
     }
 
+    b_game_over = false;
     b_first_click = true;
     move_timer = max_move_time;
 }
