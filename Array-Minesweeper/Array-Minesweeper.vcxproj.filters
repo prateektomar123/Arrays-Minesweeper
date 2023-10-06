@@ -18,54 +18,54 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ServiceLocator.cpp">
+    <ClCompile Include="source\ServiceLocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EventService.cpp">
+    <ClCompile Include="source\EventService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicService.cpp">
+    <ClCompile Include="source\GameService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UIService.cpp">
+    <ClCompile Include="source\GraphicService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SplashScreenUIController.cpp">
+    <ClCompile Include="source\UIService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainMenuUIController.cpp">
+    <ClCompile Include="source\SplashScreenUIController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameService.cpp">
+    <ClCompile Include="source\MainMenuUIController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameplayUIController.cpp">
+    <ClCompile Include="source\SoundService.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameService.h">
+    <ClInclude Include="header\ServiceLocator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ServiceLocator.h">
+    <ClInclude Include="header\EventService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EventService.h">
+    <ClInclude Include="header\GameService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicService.h">
+    <ClInclude Include="header\GraphicService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UIService.h">
+    <ClInclude Include="header\UIService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SplashScreenUIController.h">
+    <ClInclude Include="header\SplashScreenUIController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MainMenuUIController.h">
+    <ClInclude Include="header\MainMenuUIController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameplayUIController.h">
+    <ClInclude Include="header\SoundService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

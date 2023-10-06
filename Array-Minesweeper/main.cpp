@@ -1,4 +1,4 @@
-#include "GameService.h"
+#include "header/GameService.h"
 
 int main()
 {
@@ -8,6 +8,7 @@ int main()
     while (game_service->isRunning())
     {
         game_service->update();
+        game_service->render();
     }
 
     return 0;

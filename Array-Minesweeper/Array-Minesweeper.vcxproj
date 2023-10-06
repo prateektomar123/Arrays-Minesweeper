@@ -104,12 +104,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;sfml-audio-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -121,36 +121,37 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)sfml\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)sfml\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-network-d.lib;sfml-audio-d.lib;sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EventService.cpp" />
-    <ClCompile Include="GameplayUIController.cpp" />
-    <ClCompile Include="GameService.cpp" />
-    <ClCompile Include="GraphicService.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuUIController.cpp" />
-    <ClCompile Include="ServiceLocator.cpp" />
-    <ClCompile Include="SplashScreenUIController.cpp" />
-    <ClCompile Include="UIService.cpp" />
+    <ClCompile Include="source\EventService.cpp" />
+    <ClCompile Include="source\GameService.cpp" />
+    <ClCompile Include="source\GraphicService.cpp" />
+    <ClCompile Include="source\MainMenuUIController.cpp" />
+    <ClCompile Include="source\ServiceLocator.cpp" />
+    <ClCompile Include="source\SoundService.cpp" />
+    <ClCompile Include="source\SplashScreenUIController.cpp" />
+    <ClCompile Include="source\UIService.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="EventService.h" />
-    <ClInclude Include="GameplayUIController.h" />
-    <ClInclude Include="GameService.h" />
-    <ClInclude Include="GraphicService.h" />
-    <ClInclude Include="MainMenuUIController.h" />
-    <ClInclude Include="ServiceLocator.h" />
-    <ClInclude Include="SplashScreenUIController.h" />
-    <ClInclude Include="UIService.h" />
+    <ClInclude Include="header\EventService.h" />
+    <ClInclude Include="header\GameService.h" />
+    <ClInclude Include="header\GraphicService.h" />
+    <ClInclude Include="header\MainMenuUIController.h" />
+    <ClInclude Include="header\ServiceLocator.h" />
+    <ClInclude Include="header\SoundService.h" />
+    <ClInclude Include="header\SplashScreenUIController.h" />
+    <ClInclude Include="header\UIService.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
