@@ -65,6 +65,11 @@ void UIService::render()
 	}
 }
 
+void UIService::showSplashScreen()
+{
+	splash_screen_controller->showSplashScreen();
+}
+
 void UIService::initializeControllers()
 {
 	splash_screen_controller->initialize();

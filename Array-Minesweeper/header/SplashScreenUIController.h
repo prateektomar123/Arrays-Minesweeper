@@ -6,7 +6,7 @@ class SplashScreenUIController
 private:
 	// Constants:
 	const float logo_animation_time = 2.0f;
-	const float splash_screen_time = 6.0f;
+	const float splash_screen_time = 5.0f;
 
 	sf::RenderWindow* game_window;
 	sf::Texture outscal_logo_texture;

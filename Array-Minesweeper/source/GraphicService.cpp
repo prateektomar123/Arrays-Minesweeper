@@ -12,7 +12,7 @@ GraphicService::~GraphicService()
 
 void GraphicService::initialize()
 {
-	createGameWindow();
+	game_window = createGameWindow();
 	setFrameRate(frame_rate);
 	initializeText();
 }
@@ -20,8 +20,8 @@ void GraphicService::initialize()
 sf::RenderWindow* GraphicService::createGameWindow()
 {
 	configureVideoMode();
-	game_window = new sf::RenderWindow(video_mode, game_window_title, sf::Style::Fullscreen);
-	return game_window;
+	sf::RenderWindow* window = new sf::RenderWindow(video_mode, game_window_title, sf::Style::Fullscreen);
+	return window;
 }
 
 void GraphicService::configureVideoMode()
@@ -100,6 +100,7 @@ void GraphicService::drawText(sf::String text_value, float text_y_position, Font
 	game_window->draw(text);
 }
 
+// Position of text will be center alligned on x-axis.
 void GraphicService::setTextPosition(float y_position)
 {
 	sf::FloatRect textBounds = text.getLocalBounds();
