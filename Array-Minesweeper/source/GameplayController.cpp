@@ -1,6 +1,8 @@
 #include "../header/GameplayController.h"
 #include "../header/GameService.h"
 #include "../header/Board.h"
+#include "../header/ServiceLocator.h"
+#include "../header/GraphicService.h"
 
 GameplayController::GameplayController()
 {
@@ -30,6 +32,7 @@ void GameplayController::update()
 
 void GameplayController::render()
 {
+	ServiceLocator::getInstance()->getGraphicService()->drawBackground();
 	board->render();
 }
 

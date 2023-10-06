@@ -1,13 +1,11 @@
-#pragma once
-#include <SFML/Graphics/RenderWindow.hpp>
-
+#pragma 
 class Board;
 
 class GameplayController
 {
 private:
 	Board* board;
-
+	
 	void createBoard();
 
 public:

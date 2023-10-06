@@ -142,6 +142,7 @@
     <ClCompile Include="source\GraphicService.cpp" />
     <ClCompile Include="source\Board.cpp" />
     <ClCompile Include="source\GameplayService.cpp" />
+    <ClCompile Include="source\Instructions.cpp" />
     <ClCompile Include="source\MainMenuUIController.cpp" />
     <ClCompile Include="source\ServiceLocator.cpp" />
     <ClCompile Include="source\SoundService.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="header\GraphicService.h" />
     <ClInclude Include="header\Board.h" />
     <ClInclude Include="header\GameplayService.h" />
+    <ClInclude Include="header\Instructions.h" />
     <ClInclude Include="header\MainMenuUIController.h" />
     <ClInclude Include="header\ServiceLocator.h" />
     <ClInclude Include="header\SoundService.h" />
