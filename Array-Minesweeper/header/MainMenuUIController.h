@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../header/IUIController.h"
 
-class MainMenuUIController
+class MainMenuUIController : public IUIController
 {
 private:
-
 	// Constants:
 	const float button_width = 400.f;
 	const float button_height = 140.f;
@@ -46,7 +46,8 @@ private:
 public:
 	MainMenuUIController();
 
-	void initialize();
-	void update();
-	void render();
+	void initialize() override;
+	void update() override;
+	void render() override;
+	void show() override;
 };

@@ -34,6 +34,8 @@ void GameplayUIController::render()
 	drawRemainingTimer();
 }
 
+void GameplayUIController::show() { }
+
 void GameplayUIController::initializeButtonImage()
 {
 	if (restart_button_texture.loadFromFile("assets/textures/cells.jpeg") &&

@@ -155,6 +155,7 @@
     <ClInclude Include="header\GameService.h" />
     <ClInclude Include="header\GraphicService.h" />
     <ClInclude Include="header\GameplayService.h" />
+    <ClInclude Include="header\IUIController.h" />
     <ClInclude Include="header\MainMenuUIController.h" />
     <ClInclude Include="header\ServiceLocator.h" />
     <ClInclude Include="header\SoundService.h" />

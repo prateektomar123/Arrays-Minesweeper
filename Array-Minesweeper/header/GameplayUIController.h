@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../header/IUIController.h"
 
-class GameplayUIController
+class GameplayUIController : public IUIController
 {
 private:
 	const int font_size = 110;
@@ -43,7 +44,8 @@ public:
 	GameplayUIController();
 	~GameplayUIController();
 
-	void initialize();
-	void update();
-	void render();
+	void initialize() override;
+	void update() override;
+	void render() override;
+	void show() override;
 };

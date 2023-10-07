@@ -106,6 +106,8 @@ void MainMenuUIController::render()
     game_window->draw(quit_button_sprite);
 }
 
+void MainMenuUIController::show() { }
+
 bool MainMenuUIController::pressedMouseButton() { return sf::Mouse::isButtonPressed(sf::Mouse::Left); }
 
 void MainMenuUIController::handleButtonInteractions()

@@ -65,9 +65,20 @@ void UIService::render()
 	}
 }
 
-void UIService::showSplashScreen()
+void UIService::show()
 {
-	splash_screen_controller->showSplashScreen();
+	switch (GameService::getGameState())
+	{
+	case GameState::SPLASH_SCREEN:
+		splash_screen_controller->show();
+		break;
+	case GameState::MAIN_MENU:
+		main_menu_controller->show();
+		break;
+	case GameState::GAMEPLAY:
+		gameplay_ui_controller->show();
+		break;
+	}
 }
 
 void UIService::initializeControllers()
