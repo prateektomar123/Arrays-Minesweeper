@@ -79,9 +79,6 @@ SoundService* ServiceLocator::getSoundService() { return sound_service; }
 
 UIService* ServiceLocator::getUIService() { return ui_service; }
 
-GameplayService* ServiceLocator::getGameplayService()
-{
-	return gameplay_service;
-}
+GameplayService* ServiceLocator::getGameplayService() { return gameplay_service; }
 
 void ServiceLocator::deleteServiceLocator() { delete(this); }

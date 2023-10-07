@@ -29,7 +29,8 @@ private:
     bool b_left_mouse_button_pressed;
     bool b_right_mouse_button_pressed;
 
-    std::vector<std::vector<Cell*>> cells;
+    Cell*** cells;
+
     sf::RenderWindow* game_window;
 
     // To generate random values.

@@ -5,6 +5,11 @@
 #include "../header/SoundService.h"
 #include "../header/GraphicService.h"
 
+/* 
+// This constructor uses a specific C++ feature called member initializer list to initialize class members.
+// In this case, it initializes the 'random_engine' member and provides it with an initial value.
+// The syntax for member initializer list is : member_name(initial_value)
+*/
 Board::Board() : random_engine(random_device())
 {
     game_window = nullptr;
@@ -30,25 +35,22 @@ void Board::initialize()
 
 void Board::createCells()
 {
-    // Here we're adding cells to the cells vector.
+    cells = new Cell**[number_of_rows];
+
     for (int a = 0; a < number_of_rows; a++)
     {
-        std::vector<Cell*> cell_row;
+        cells[a] = new Cell*[number_of_colums];
 
         for (int b = 0; b < number_of_colums; b++)
         {    
-            Cell* cell = createCell();
-            cell_row.push_back(cell);
+            cells[a][b] = createCell();
         }
-
-        cells.push_back(cell_row);
     }
 }
 
 Cell* Board::createCell()
 {
-    Cell* cell = new Cell();
-    return cell;
+    return new Cell();
 }
 
 void Board::initializeBoardImage()
@@ -244,11 +246,13 @@ void Board::deleteCells()
 {
     for (int a = 0; a < number_of_rows; a++)
     {
-        std::vector<Cell*> cell_row;
-
         for (int b = 0; b < number_of_colums; b++)
         {
-            delete(cells[a][b]);
+            delete cells[a][b];
         }
+
+        delete[] cells[a];
     }
+
+    delete[] cells;
 }

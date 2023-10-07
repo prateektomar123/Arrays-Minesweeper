@@ -11,7 +11,7 @@ class GraphicService
 {
 private:
 	const int frame_rate = 60;
-	const int font_size = 55;
+	const int default_font_size = 55;
 	const std::string game_window_title = "Outscal Presents - Array Jumper";
 	const int game_window_width = 1920;
 	const int game_window_height = 1080;

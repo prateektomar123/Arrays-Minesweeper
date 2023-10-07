@@ -32,7 +32,6 @@ private:
 
 public:
     Cell();
-    ~Cell();
 
     CellState getCellState();
     CellType getCellType();

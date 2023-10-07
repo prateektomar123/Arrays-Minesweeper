@@ -68,7 +68,7 @@ bool GraphicService::loadFont()
 void GraphicService::setupText()
 {
 	text.setFont(font_bubble_bobble);
-	text.setCharacterSize(font_size);
+	text.setCharacterSize(default_font_size);
 	text.setFillColor(sf::Color::White);
 }
 
@@ -82,21 +82,22 @@ void GraphicService::drawText(sf::String text_value, sf::Vector2f text_position,
 
 	game_window->draw(text);
 
-	text.setCharacterSize(font_size);
+	text.setCharacterSize(default_font_size);
 	text.setFillColor(sf::Color::White);
 }
 
 void GraphicService::drawText(sf::String text_value, float text_y_position, int text_font_size, FontType font_type)
 {
 	text.setCharacterSize(text_font_size);
-	drawText(text_value, text_y_position);
-	text.setCharacterSize(font_size);
+	drawText(text_value, text_y_position, font_type);
+	text.setCharacterSize(default_font_size);
 }
 
 void GraphicService::drawText(sf::String text_value, float text_y_position, FontType font_type)
 {
 	text.setString(text_value);
 	setTextPosition(text_y_position);
+	setFont(font_type);
 	game_window->draw(text);
 }
 

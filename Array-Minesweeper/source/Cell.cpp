@@ -7,10 +7,6 @@ Cell::Cell()
     reset();
 }
 
-Cell::~Cell()
-{
-}
-
 CellState Cell::getCellState()
 {
     return cell_state;
