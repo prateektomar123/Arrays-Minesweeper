@@ -140,7 +140,6 @@
     <ClCompile Include="source\GameplayUIController.cpp" />
     <ClCompile Include="source\GameService.cpp" />
     <ClCompile Include="source\GraphicService.cpp" />
-    <ClCompile Include="source\Board.cpp" />
     <ClCompile Include="source\GameplayService.cpp" />
     <ClCompile Include="source\MainMenuUIController.cpp" />
     <ClCompile Include="source\ServiceLocator.cpp" />
@@ -155,7 +154,6 @@
     <ClInclude Include="header\GameplayUIController.h" />
     <ClInclude Include="header\GameService.h" />
     <ClInclude Include="header\GraphicService.h" />
-    <ClInclude Include="header\Board.h" />
     <ClInclude Include="header\GameplayService.h" />
     <ClInclude Include="header\MainMenuUIController.h" />
     <ClInclude Include="header\ServiceLocator.h" />
