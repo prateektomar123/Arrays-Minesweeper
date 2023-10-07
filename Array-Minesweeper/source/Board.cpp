@@ -298,7 +298,7 @@ void Board::populateBoard(int x, int y)
 
 void Board::openEmptyCells(int x, int y)
 {
-    if (cells[x][y]->getCellState() == CellState::OPEN || cells[x][y]->getCellType() != CellType::EMPTY) return;
+    if (cells[x][y]->getCellState() == CellState::OPEN) return;
 
     cells[x][y]->setCellState(CellState::OPEN);
 
@@ -312,7 +312,10 @@ void Board::openEmptyCells(int x, int y)
                 continue;
             }
 
-            openEmptyCells(a + x, b + y);
+            if (cells[x][y]->getCellType() == CellType::EMPTY)
+            {
+                openEmptyCells(a + x, b + y);
+            }
         }
     }
 }
