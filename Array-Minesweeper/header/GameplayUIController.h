@@ -21,8 +21,6 @@ private:
 
 	const int tile_height = 32;
 
-	bool b_left_mouse_button_pressed;
-
 	sf::RenderWindow* game_window;
 
 	sf::Texture restart_button_texture;

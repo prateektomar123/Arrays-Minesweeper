@@ -13,9 +13,6 @@
 GameplayController::GameplayController() : random_engine(random_device())
 {
     game_window = nullptr;
-    b_left_mouse_button_pressed = false;
-    b_right_mouse_button_pressed = false;
-
     createBoard();
 }
 
@@ -83,11 +80,21 @@ void GameplayController::initializeCellImage()
 
 void GameplayController::scaleCellImage()
 {
-    cell_width = (board_width - board_width_offset) / static_cast<float>(number_of_colums);
-    cell_height = (board_height - board_height_offset) / static_cast<float>(number_of_rows);
+    cell_width = calculateCellWidth();
+    cell_height = calculateCellHeight();
 
     float scaleFactor = cell_height / tile_height;
     cell_sprite.setScale(scaleFactor, scaleFactor);
+}
+
+float GameplayController::calculateCellWidth()
+{
+    return (board_width - board_width_offset) / static_cast<float>(number_of_colums);
+}
+
+float GameplayController::calculateCellHeight()
+{
+    return (board_height - board_height_offset) / static_cast<float>(number_of_rows);
 }
 
 void GameplayController::update()
@@ -140,29 +147,19 @@ void GameplayController::drawCell(int row, int col)
 
 void GameplayController::handleMouseInteractions()
 {
-    EventService* event_service = ServiceLocator::getInstance()->getEventService();
     sf::Vector2i cellIndex = getCellFromMousePosition();
+    if (!isValidCellIndex(cellIndex)) return;
 
-    if (!b_left_mouse_button_pressed && event_service->pressedLeftMouseButton() && cellIndex.x != -1 && cellIndex.y != -1)
+    EventService* event_service = ServiceLocator::getInstance()->getEventService();
+
+    if (event_service->pressedLeftMouseButton())
     {
         openCell(cellIndex.x, cellIndex.y);
-        b_left_mouse_button_pressed = true;
     }
 
-    if (!b_right_mouse_button_pressed && event_service->pressedRightMouseButton() && cellIndex.x != -1 && cellIndex.y != -1)
+    if (event_service->pressedRightMouseButton())
     {
         flagCell(cellIndex.x, cellIndex.y);
-        b_right_mouse_button_pressed = true;
-    }
-
-    if (!event_service->pressedLeftMouseButton())
-    {
-        b_left_mouse_button_pressed = false;
-    }
-
-    if (!event_service->pressedRightMouseButton())
-    {
-        b_right_mouse_button_pressed = false;
     }
 }
 
@@ -177,12 +174,13 @@ sf::Vector2i GameplayController::getCellFromMousePosition()
     int cell_column = static_cast<int>(adjusted_mouse_position.x / cell_width);
     int cell_row = static_cast<int>(adjusted_mouse_position.y / cell_height);
 
-    // Check if the adjusted mouse position falls within any cell
-    if (cell_column >= 0 && cell_column < number_of_colums && cell_row >= 0 && cell_row < number_of_rows) {
-        return sf::Vector2i(cell_row, cell_column);
-    }
+    return sf::Vector2i(cell_row, cell_column);
+}
 
-    return sf::Vector2i(-1, -1);
+bool GameplayController::isValidCellIndex(sf::Vector2i cellIndex)
+{
+    return cellIndex.x >= 0 && cellIndex.x < number_of_rows && 
+        cellIndex.y >= 0 && cellIndex.y < number_of_colums;
 }
 
 void GameplayController::openCell(int x, int y)

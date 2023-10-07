@@ -3,13 +3,12 @@
 #include "../header/GraphicService.h"
 #include "../header/GameplayService.h"
 #include "../header/GameplayController.h"
-#include "../header/EventService.h"
 #include "../header/SoundService.h"
+#include "../header/EventService.h"
 
 GameplayUIController::GameplayUIController()
 {
 	game_window = nullptr;
-	b_left_mouse_button_pressed = false;
 }
 
 GameplayUIController::~GameplayUIController()
@@ -96,16 +95,10 @@ void GameplayUIController::handleButtonInteractions()
 	EventService* event_service = ServiceLocator::getInstance()->getEventService();
 	sf::Vector2f mouse_position = sf::Vector2f(sf::Mouse::getPosition(*game_window));
 
-	if (!b_left_mouse_button_pressed && event_service->pressedLeftMouseButton() && clickedButton(&restart_button_sprite, mouse_position))
+	if (event_service->pressedLeftMouseButton() && clickedButton(&restart_button_sprite, mouse_position))
 	{
 		ServiceLocator::getInstance()->getGameplayService()->getGameplayController()->restart();
 		ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-		b_left_mouse_button_pressed = true;
-	}
-
-	if (!event_service->pressedLeftMouseButton())
-	{
-		b_left_mouse_button_pressed = false;
 	}
 }
 

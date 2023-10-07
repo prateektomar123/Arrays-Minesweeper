@@ -30,9 +30,6 @@ private:
 
     float move_timer;
 
-    bool b_left_mouse_button_pressed;
-    bool b_right_mouse_button_pressed;
-
     Cell*** board;
 
     sf::RenderWindow* game_window;
@@ -54,9 +51,15 @@ private:
     void scaleBoardImage();
     void setBoardImagePosition();
     void initializeCellImage();
+
     void scaleCellImage();
+    float calculateCellWidth();
+    float calculateCellHeight();
+
     void handleMouseInteractions();
+    bool isValidCellIndex(sf::Vector2i cellIndex);
     sf::Vector2i getCellFromMousePosition();
+
     void drawAllCells();
     void drawCell(int row, int col);
     void flagCell(int x, int y);
