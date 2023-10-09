@@ -4,6 +4,7 @@
 #include "../header/SoundService.h"
 #include "../header/Instructions.h"
 #include "../header/GameplayService.h"
+#include "../header/EventService.h"
 
 MainMenuUIController::MainMenuUIController()
 {
@@ -83,15 +84,7 @@ void MainMenuUIController::positionButtons()
 
 void MainMenuUIController::update()
 {
-    if (pressedMouseButton())
-    {
-        handleButtonInteractions();
-        mouse_button_pressed = true;
-    }
-    else
-    {
-        mouse_button_pressed = false;
-    }
+    handleButtonInteractions();
 }
 
 void MainMenuUIController::render()
@@ -109,12 +102,10 @@ void MainMenuUIController::render()
     }
 }
 
-bool MainMenuUIController::pressedMouseButton() { return sf::Mouse::isButtonPressed(sf::Mouse::Left); }
+void MainMenuUIController::show() { }
 
 void MainMenuUIController::handleButtonInteractions()
 {
-    if (mouse_button_pressed) return;
-
     switch (current_main_menu_ui_state)
     {
     case MainMenuUIState::MENU:
@@ -158,7 +149,8 @@ void MainMenuUIController::handleInstructionButtonInteractions()
 
 bool MainMenuUIController::clickedButton(sf::Sprite* button_sprite, sf::Vector2f mouse_position)
 {
-    return button_sprite->getGlobalBounds().contains(mouse_position);
+    return ServiceLocator::getInstance()->getEventService()->pressedLeftMouseButton() &&
+        button_sprite->getGlobalBounds().contains(mouse_position);
 }
 
 void MainMenuUIController::setMainMenuUIState(MainMenuUIState state)

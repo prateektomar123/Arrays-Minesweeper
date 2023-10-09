@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../header/IUIController.h"
 
-class SplashScreenUIController
+class SplashScreenUIController : public IUIController
 {
 private:
 	// Constants:
@@ -29,9 +30,8 @@ private:
 public:
 	SplashScreenUIController();
 
-	void initialize();
-	void update();
-	void render();
-
-	void showSplashScreen();
+	void initialize() override;
+	void update() override;
+	void render() override;
+	void show() override;
 };

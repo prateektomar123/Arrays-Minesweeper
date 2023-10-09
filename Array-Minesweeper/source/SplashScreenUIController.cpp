@@ -84,7 +84,7 @@ void SplashScreenUIController::logoAnimationComplete()
     GameService::setGameState(GameState::MAIN_MENU);
 }
 
-void SplashScreenUIController::showSplashScreen()
+void SplashScreenUIController::show()
 {
     // Reset the Clock:
     clock.restart();

@@ -38,7 +38,6 @@ void ServiceLocator::initialize()
 	time_service->initialize();
 
 	game_window = graphic_service->getGameWindow();
-
 	event_service->initialize();
 	ui_service->initialize();
 	gameplay_service->initialize();
@@ -88,9 +87,6 @@ SoundService* ServiceLocator::getSoundService() { return sound_service; }
 
 UIService* ServiceLocator::getUIService() { return ui_service; }
 
-GameplayService* ServiceLocator::getGameplayService()
-{
-	return gameplay_service;
-}
+GameplayService* ServiceLocator::getGameplayService() { return gameplay_service; }
 
 void ServiceLocator::deleteServiceLocator() { delete(this); }

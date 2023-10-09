@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../header/IUIController.h"
 
-class GameplayUIController
+class GameplayUIController : public IUIController
 {
 private:
 	const int font_size = 110;
@@ -19,8 +20,6 @@ private:
 	const float button_width = 80.f;
 
 	const int tile_height = 32;
-
-	bool b_left_mouse_button_pressed;
 
 	sf::RenderWindow* game_window;
 
@@ -43,7 +42,8 @@ public:
 	GameplayUIController();
 	~GameplayUIController();
 
-	void initialize();
-	void update();
-	void render();
+	void initialize() override;
+	void update() override;
+	void render() override;
+	void show() override;
 };

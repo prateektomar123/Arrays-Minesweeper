@@ -11,11 +11,13 @@ class GraphicService
 {
 private:
 	const int frame_rate = 60;
-	const int font_size = 55;
+	const int default_font_size = 55;
 
-	const std::string game_window_title = "Outscal Presents - Array Jumper";
+	const std::string game_window_title = "Outscal Presents - Minesweeper";
+
 	const int game_window_width = 1920;
 	const int game_window_height = 1080;
+
 	const sf::Color window_color = sf::Color(200, 200, 0, 255);
 
 	const float background_alpha = 85.f;
@@ -35,7 +37,7 @@ private:
 
 	void initializeText();
 	bool loadFont();
-	void setupText();
+	void setDefaultText();
 	void setTextPosition(float y_position);
 	void setFont(FontType font_type);
 	void initializeBackgroundImage();
