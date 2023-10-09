@@ -5,6 +5,7 @@
 #include "../header/EventService.h"
 #include "../header/SoundService.h"
 #include "../header/GraphicService.h"
+#include "../header/TimeService.h"
 
 /*
 // This constructor uses a specific C++ feature called member initializer list to initialize class members.
@@ -102,6 +103,8 @@ float GameplayController::calculateCellHeight()
 void GameplayController::update()
 {
     handleMouseInteractions();
+    updateMoveTimer();
+    checkGameWinCondition();
 }
 
 void GameplayController::render()
@@ -109,6 +112,23 @@ void GameplayController::render()
 	ServiceLocator::getInstance()->getGraphicService()->drawBackground();
     game_window->draw(board_sprite);
     drawAllCells();
+}
+
+void GameplayController::updateMoveTimer()
+{
+    move_timer -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+
+    if (move_timer <= 1)
+    {
+        if (b_game_over)
+        {
+            GameService::setGameState(GameState::CREDITS);
+        }
+        else
+        {
+            gameOver();
+        }
+    }
 }
 
 void GameplayController::drawAllCells()
@@ -188,10 +208,31 @@ bool GameplayController::isValidCellIndex(sf::Vector2i cellIndex)
 
 void GameplayController::openCell(int x, int y)
 {
-    if (board[x][y]->getCellState() != CellState::FLAGGED)
+    if (board[x][y]->getCellState() != CellState::FLAGGED && board[x][y]->getCellState() != CellState::OPEN)
     {
-        board[x][y]->setCellState(CellState::OPEN);
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+        if (b_first_click)
+        {
+            populateBoard(x, y);
+            b_first_click = false;
+        }
+
+        switch (board[x][y]->getCellType())
+        {
+        case::CellType::EMPTY:
+            openEmptyCells(x, y);
+            move_timer = max_move_time;
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            break;
+        case::CellType::MINE:
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
+            gameOver();
+            break;
+        default:
+            board[x][y]->setCellState(CellState::OPEN);
+            move_timer = max_move_time;
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            break;
+        }
     }
 }
 
@@ -201,13 +242,141 @@ void GameplayController::flagCell(int x, int y)
     {
     case::CellState::FLAGGED:
         board[x][y]->setCellState(CellState::HIDDEN);
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
+        flagged_cells--;
         break;
     case::CellState::HIDDEN:
         board[x][y]->setCellState(CellState::FLAGGED);
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
+        flagged_cells++;
         break;
     }
+}
 
-    ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
+void GameplayController::openEmptyCells(int x, int y)
+{
+    if (board[x][y]->getCellState() == CellState::OPEN) return;
+
+    board[x][y]->setCellState(CellState::OPEN);
+
+    for (int a = -1; a < 2; a++)
+    {
+        for (int b = -1; b < 2; b++)
+        {
+            // Check for cells inside grid.
+            if ((a == 0 && b == 0) || (a + x < 0 || b + y < 0 || number_of_colums == a + x || number_of_rows == b + y))
+            {
+                continue;
+            }
+
+            if (board[x][y]->getCellType() == CellType::EMPTY)
+            {
+                openEmptyCells(a + x, b + y);
+            }
+        }
+    }
+}
+
+void GameplayController::openAllCells()
+{
+    for (int a = 0; a < number_of_rows; ++a)
+    {
+        for (int b = 0; b < number_of_colums; ++b)
+        {
+            board[a][b]->setCellState(CellState::OPEN);
+        }
+    }
+}
+
+void GameplayController::populateBoard(int x, int y)
+{
+    // Co-ordinate distribution i.e. selecting random position for mines.
+    std::uniform_int_distribution<int> x_distribution(0, number_of_colums - 1);
+    std::uniform_int_distribution<int> y_distribution(0, number_of_rows - 1);
+
+    // Generate mines.
+    for (int a = 0; a < mines_count; a++)
+    {
+        int i = static_cast<int>(x_distribution(random_engine));
+        int j = static_cast<int>(y_distribution(random_engine));
+
+        // If the cell is already mine or it's a cell that the player wants to open.
+        if (board[i][j]->getCellType() == CellType::MINE || (x == i && y == j))
+        {
+            a--;
+        }
+        else
+        {
+            board[i][j]->setCellType(CellType::MINE);
+        }
+    }
+
+    for (int a = 0; a < number_of_rows; a++)
+    {
+        for (int b = 0; b < number_of_colums; b++)
+        {
+            if (board[a][b]->getCellType() != CellType::MINE)
+            {
+                CellType type = static_cast<CellType>(countMinesAround(a, b));
+                board[a][b]->setCellType(type);
+            }
+        }
+    }
+}
+
+int GameplayController::countMinesAround(int x, int y)
+{
+    int mines_around = 0;
+
+    for (int a = -1; a < 2; a++)
+    {
+        for (int b = -1; b < 2; b++)
+        {
+            if ((a == 0 && b == 0) || (a + x < 0 || b + y < 0 || number_of_colums == a + x || number_of_rows == b + y))
+            {
+                continue;
+            }
+
+            if (board[a + x][b + y]->getCellType() == CellType::MINE)
+            {
+                mines_around++;
+            }
+        }
+    }
+
+    return mines_around;
+}
+
+void GameplayController::checkGameWinCondition()
+{
+    if (b_game_over) return;
+
+    int total_cell_count = number_of_rows * number_of_colums;
+    int open_cell_count = 0;
+
+    for (int a = 0; a < number_of_rows; a++)
+    {
+        for (int b = 0; b < number_of_colums; b++)
+        {
+            if (board[a][b]->getCellState() == CellState::OPEN)
+            {
+                open_cell_count++;
+            }
+        }
+    }
+
+    if (total_cell_count - open_cell_count == mines_count)
+    {
+        gameOver();
+    }
+}
+
+void GameplayController::gameOver()
+{
+    openAllCells();
+
+    b_game_over = true;
+    move_timer = restart_time;
 }
 
 void GameplayController::restart() { resetBoard(); }
@@ -222,7 +391,7 @@ void GameplayController::resetBoard()
         }
     }
 
-    move_timer = max_move_time;
+    resetVariables();
 }
 
 void GameplayController::resetCell(int row, int col)
@@ -232,6 +401,14 @@ void GameplayController::resetCell(int row, int col)
 
     board[row][col]->setCellState(CellState::HIDDEN);
     board[row][col]->setCellType(static_cast<CellType>(randomNumber));
+}
+
+void GameplayController::resetVariables()
+{
+    b_game_over = false;
+    b_first_click = true;
+    move_timer = max_move_time;
+    flagged_cells = 0;
 }
 
 void GameplayController::deleteBoard()
@@ -247,7 +424,7 @@ void GameplayController::deleteBoard()
 
 int GameplayController::getMinesCount()
 {
-    return mines_count;
+    return mines_count - flagged_cells;
 }
 
 float GameplayController::getRemainingTimer()
