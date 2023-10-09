@@ -7,8 +7,8 @@ class Cell;
 class GameplayController
 {
 private:
-    const int number_of_rows = 9;
-    const int number_of_colums = 9;
+    static const int number_of_rows = 9;
+    static const int number_of_colums = 9;
     const int mines_count = 8;
 
     const float max_move_time = 30.f;
@@ -30,7 +30,7 @@ private:
 
     float move_timer;
 
-    Cell*** board;
+    Cell* board[number_of_rows][number_of_colums];
 
     sf::RenderWindow* game_window;
 
@@ -49,6 +49,7 @@ private:
     void createBoard();
     void initializeBoardImage();
     void scaleBoardImage();
+    float calculateBoardImageScaleFactor();
     void setBoardImagePosition();
     void initializeCellImage();
 

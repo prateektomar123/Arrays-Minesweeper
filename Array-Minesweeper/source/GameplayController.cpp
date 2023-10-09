@@ -29,12 +29,8 @@ void GameplayController::initialize()
 
 void GameplayController::createBoard()
 {
-    board = new Cell**[number_of_rows];
-
     for (int a = 0; a < number_of_rows; a++)
     {
-        board[a] = new Cell*[number_of_colums];
-
         for (int b = 0; b < number_of_colums; b++)
         {
             board[a][b] = new Cell();
@@ -55,12 +51,17 @@ void GameplayController::initializeBoardImage()
 
 void GameplayController::scaleBoardImage()
 {
-    // Calculate the scaling factor to fit the entire height
-    float scaleFactor = static_cast<float>(game_window->getSize().y) / board_texture.getSize().y;
+    float scaleFactor = calculateBoardImageScaleFactor();
     board_sprite.setScale(scaleFactor, scaleFactor);
 
-    board_width = board_texture.getSize().x * scaleFactor;
-    board_height = board_texture.getSize().y * scaleFactor;
+    board_width = board_sprite.getGlobalBounds().getSize().x;
+    board_height = board_sprite.getGlobalBounds().getSize().y;
+}
+
+float GameplayController::calculateBoardImageScaleFactor()
+{
+    // Calculate the scaling factor to fit the entire height
+    return static_cast<float>(game_window->getSize().y) / board_texture.getSize().y;
 }
 
 void GameplayController::setBoardImagePosition()
@@ -239,11 +240,7 @@ void GameplayController::deleteBoard()
         {
             delete board[a][b];
         }
-
-        delete[] board[a];
     }
-
-    delete[] board;
 }
 
 int GameplayController::getMinesCount()
