@@ -34,7 +34,6 @@ void ServiceLocator::initialize()
 	sound_service->initialize();
 
 	game_window = graphic_service->getGameWindow();
-
 	event_service->initialize();
 	ui_service->initialize();
 	gameplay_service->initialize();

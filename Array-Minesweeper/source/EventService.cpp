@@ -7,7 +7,12 @@ EventService::~EventService() = default;
 
 void EventService::initialize()
 {
-	game_window = ServiceLocator::getInstance()->getGameWindow();
+    game_window = ServiceLocator::getInstance()->getGameWindow();
+}
+
+void EventService::update()
+{
+    updateButtonsState();
 }
 
 void EventService::update()
@@ -17,15 +22,57 @@ void EventService::update()
 
 void EventService::processEvents()
 {
-	if (isGameWindowOpen())
-	{
-		// Iterate over all events in the queue.
-		while (game_window->pollEvent(game_event))
-		{
-			if (gameWindowWasClosed() || hasQuitGame())
-				game_window->close();
-		}
-	}
+    if (isGameWindowOpen())
+    {
+        // Iterate over all events in the queue.
+        while (game_window->pollEvent(game_event))
+        {
+            if (gameWindowWasClosed() || hasQuitGame())
+                game_window->close();
+        }
+    }
+}
+
+void EventService::updateButtonsState()
+{
+    updateLeftMouseButtonState();
+    updateRightMouseButtonState();
+}
+
+void EventService::updateLeftMouseButtonState()
+{
+    if (left_mouse_button_state == ButtonState::PRESSED && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        left_mouse_button_state = ButtonState::HELD;
+    }
+
+    if (left_mouse_button_state == ButtonState::RELEASED && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        left_mouse_button_state = ButtonState::PRESSED;
+    }
+
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        left_mouse_button_state = ButtonState::RELEASED;
+    }
+}
+
+void EventService::updateRightMouseButtonState()
+{
+    if (right_mouse_button_state == ButtonState::PRESSED && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        right_mouse_button_state = ButtonState::HELD;
+    }
+
+    if (right_mouse_button_state == ButtonState::RELEASED && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        right_mouse_button_state = ButtonState::PRESSED;
+    }
+
+    if (!sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    {
+        right_mouse_button_state = ButtonState::RELEASED;
+    }
 }
 
 void EventService::updateButtonsState()
