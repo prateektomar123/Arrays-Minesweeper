@@ -1,7 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "../header/IUIController.h"
 
-class CreditsScreenUIController
+class CreditsScreenUIController : public IUIController
 {
 private:
 	const sf::String game_window_title = "Outscal Presents - Minesweeper";
@@ -44,4 +45,5 @@ public:
 	void initialize();
 	void update();
 	void render();
+	void show() override;
 };

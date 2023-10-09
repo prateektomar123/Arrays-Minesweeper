@@ -84,6 +84,8 @@ void CreditsScreenUIController::render()
     drawGameTitle();
 }
 
+void CreditsScreenUIController::show() { }
+
 bool CreditsScreenUIController::pressedMouseButton() { return sf::Mouse::isButtonPressed(sf::Mouse::Left); }
 
 void CreditsScreenUIController::handleButtonInteractions()
