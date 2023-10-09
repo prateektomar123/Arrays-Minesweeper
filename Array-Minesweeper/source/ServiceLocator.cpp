@@ -29,9 +29,9 @@ void ServiceLocator::initialize()
 {
 	graphic_service->initialize();
 	sound_service->initialize();
-	event_service->initialize();
 
 	game_window = graphic_service->getGameWindow();
+	event_service->initialize();
 	ui_service->initialize();
 }
 
@@ -39,6 +39,7 @@ void ServiceLocator::update()
 {
 	ui_service->update();
 	graphic_service->update();
+	event_service->update();
 }
 
 void ServiceLocator::render()
