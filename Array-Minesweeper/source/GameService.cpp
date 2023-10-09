@@ -34,7 +34,11 @@ void GameService::initializeVariables()
 	game_window = service_locator->getGraphicService()->getGameWindow();
 }
 
-void GameService::showSplashScreen() { setGameState(GameState::SPLASH_SCREEN); }
+void GameService::showSplashScreen() 
+{ 
+	setGameState(GameState::SPLASH_SCREEN); 
+	ServiceLocator::getInstance()->getUIService()->showSplashScreen();
+}
 
 bool GameService::isRunning() { return service_locator->getGraphicService()->isGameWindowOpen(); }
 

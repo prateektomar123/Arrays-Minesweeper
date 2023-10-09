@@ -27,4 +27,6 @@ public:
 	void initialize();
 	void update();
 	void render();
+
+	void showSplashScreen();
 };

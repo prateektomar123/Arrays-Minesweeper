@@ -10,11 +10,10 @@ SplashScreenUIController::SplashScreenUIController()
 
 void SplashScreenUIController::initialize()
 {
-    game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+    game_window = ServiceLocator::getInstance()->getGameWindow();
 
     initializeVariables();
     initializeOutscalLogo();
-    showSplashScreen();
 }
 
 void SplashScreenUIController::update()
@@ -59,7 +58,7 @@ void SplashScreenUIController::setPositionToCenter()
 
 void SplashScreenUIController::updateLogo(float deltaTime)
 {
-    if (elapsed_time <= 4.0f)
+    if (elapsed_time <= 3.0f)
         showLogoWithFade();
     else
         hideLogoWithFade();
@@ -75,7 +74,7 @@ void SplashScreenUIController::showLogoWithFade()
 // Once the logo is fully visible, start fading out after 2 seconds.
 void SplashScreenUIController::hideLogoWithFade()
 {
-    float alpha = std::max(0.0f, 1.0f - ((elapsed_time - 4.0f) / logo_animation_time));
+    float alpha = std::max(0.0f, 1.0f - ((elapsed_time - 3.0f) / logo_animation_time));
     outscal_logo_sprite.setColor(sf::Color(255, 255, 255, static_cast<sf::Uint8>(alpha * 255)));
 }
 

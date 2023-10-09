@@ -48,6 +48,7 @@ void ServiceLocator::update()
 {
 	graphic_service->update();
 	time_service->update();
+	event_service->update();
 	gameplay_service->update();
 	ui_service->update();
 }
@@ -75,24 +76,15 @@ ServiceLocator* ServiceLocator::getInstance()
 	return &instance;
 }
 
-sf::RenderWindow* ServiceLocator::getGameWindow()
-{
-	return game_window;
-}
+sf::RenderWindow* ServiceLocator::getGameWindow() { return game_window; }
 
 EventService* ServiceLocator::getEventService() { return event_service; }
 
 GraphicService* ServiceLocator::getGraphicService() { return graphic_service; }
 
-TimeService* ServiceLocator::getTimeService()
-{
-	return time_service;
-}
+TimeService* ServiceLocator::getTimeService() { return time_service; }
 
-SoundService* ServiceLocator::getSoundService()
-{
-	return sound_service;
-}
+SoundService* ServiceLocator::getSoundService() { return sound_service; }
 
 UIService* ServiceLocator::getUIService() { return ui_service; }
 

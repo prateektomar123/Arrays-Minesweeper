@@ -13,8 +13,6 @@ enum class GameState
 class GameService
 {
 private:
-	const int frame_rate = 60;
-	
 	static GameState current_state;
 	ServiceLocator* service_locator;
 	sf::RenderWindow* game_window;
