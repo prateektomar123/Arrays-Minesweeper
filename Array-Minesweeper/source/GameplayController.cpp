@@ -115,7 +115,7 @@ float GameplayController::calculateCellHeight()
 void GameplayController::update()
 {
     handleMouseInteractions();
-    updateMoveTimer();
+    updateRemainingTimer();
     checkGameWinCondition();
 }
 
@@ -126,11 +126,11 @@ void GameplayController::render()
     drawAllCells();
 }
 
-void GameplayController::updateMoveTimer()
+void GameplayController::updateRemainingTimer()
 {
-    move_timer -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+    remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
 
-    if (move_timer <= 1)
+    if (remaining_time <= 1)
     {
         if (b_game_over)
         {
@@ -163,12 +163,12 @@ void GameplayController::handleMouseInteractions()
 
     if (event_service->pressedLeftMouseButton())
     {
-        board[cellIndex.x][cellIndex.y]->openCell();
+        openCell(cellIndex.x, cellIndex.y);
     }
 
     if (event_service->pressedRightMouseButton())
     {
-        board[cellIndex.x][cellIndex.y]->flagCell();
+        flagCell(cellIndex.x, cellIndex.y);
     }
 }
 
@@ -194,32 +194,23 @@ bool GameplayController::isValidCellIndex(sf::Vector2i cellIndex)
 
 void GameplayController::openCell(int x, int y)
 {
-    if (board[x][y]->getCellState() != CellState::FLAGGED && board[x][y]->getCellState() != CellState::OPEN)
+    if (b_first_click)
     {
-        if (b_first_click)
-        {
-            populateBoard(x, y);
-            b_first_click = false;
-        }
-
-        switch (board[x][y]->getCellType())
-        {
-        case::CellType::EMPTY:
-            openEmptyCells(x, y);
-            move_timer = max_move_time;
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-            break;
-        case::CellType::MINE:
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
-            gameOver();
-            break;
-        default:
-            board[x][y]->setCellState(CellState::OPEN);
-            move_timer = max_move_time;
-            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-            break;
-        }
+        populateBoard(x, y);
+        b_first_click = false;
     }
+    
+    switch (board[x][y]->getCellType())
+    {
+    case::CellType::EMPTY:
+        openEmptyCells(x, y);
+        break;
+    case::CellType::MINE:
+        gameOver();
+        break;
+    }
+
+    board[x][y]->openCell();
 }
 
 void GameplayController::flagCell(int x, int y)
@@ -227,23 +218,21 @@ void GameplayController::flagCell(int x, int y)
     switch (board[x][y]->getCellState())
     {
     case::CellState::FLAGGED:
-        board[x][y]->setCellState(CellState::HIDDEN);
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
         flagged_cells--;
         break;
     case::CellState::HIDDEN:
-        board[x][y]->setCellState(CellState::FLAGGED);
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
         flagged_cells++;
         break;
     }
+
+    board[x][y]->flagCell();
 }
 
 void GameplayController::openEmptyCells(int x, int y)
 {
     if (board[x][y]->getCellState() == CellState::OPEN) return;
 
-    board[x][y]->setCellState(CellState::OPEN);
+    board[x][y]->openCell(false);
 
     for (int a = -1; a < 2; a++)
     {
@@ -274,7 +263,7 @@ void GameplayController::openAllCells()
     {
         for (int b = 0; b < number_of_colums; ++b)
         {
-            board[a][b]->setCellState(CellState::OPEN);
+            board[a][b]->openCell();
         }
     }
 }
@@ -367,7 +356,7 @@ void GameplayController::gameOver()
     openAllCells();
 
     b_game_over = true;
-    move_timer = restart_time;
+    remaining_time = restart_time;
 }
 
 void GameplayController::restart() { resetBoard(); }
@@ -385,21 +374,11 @@ void GameplayController::resetBoard()
     resetVariables();
 }
 
-void GameplayController::resetCell(int row, int col)
-{
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomNumber = std::rand() % 9;
-
-    board[row][col]->setCellState(CellState::HIDDEN);
-    board[row][col]->setCellType(static_cast<CellType>(randomNumber));
-    remaining_time = max_level_duration;
-}
-
 void GameplayController::resetVariables()
 {
     b_game_over = false;
     b_first_click = true;
-    move_timer = max_move_time;
+    remaining_time = max_level_duration;
     flagged_cells = 0;
 }
 

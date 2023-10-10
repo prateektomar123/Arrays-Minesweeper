@@ -48,8 +48,8 @@ public:
 
     void initialize(float cell_width, float cell_height);
     void drawCell(sf::Sprite* cell_sprite);
+    void openCell(bool b_play_sound = true);
     void flagCell();
-    void openCell();
 
     CellState getCellState();
     CellType getCellType();

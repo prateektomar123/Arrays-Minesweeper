@@ -67,12 +67,23 @@ void Cell::drawCell(sf::Sprite* cell_sprite)
     game_window->draw(*cell_sprite);
 }
 
-void Cell::openCell()
+void Cell::openCell(bool b_play_sound)
 {
-    if (cell_state != CellState::FLAGGED)
+    if (cell_state == CellState::FLAGGED || cell_state == CellState::OPEN) return;
+        
+    setCellState(CellState::OPEN);
+
+    if (b_play_sound)
     {
-        setCellState(CellState::OPEN);
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+        switch (cell_type)
+        {
+        case::CellType::EMPTY:
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            break;
+        case::CellType::MINE:
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
+            break;
+        }
     }
 }
 

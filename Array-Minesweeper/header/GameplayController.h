@@ -67,7 +67,9 @@ private:
     bool isValidCellIndex(sf::Vector2i cellIndex);
     sf::Vector2i getCellFromMousePosition();
 
-    void updateMoveTimer();
+    void openCell(int x, int y);
+    void flagCell(int x, int y);
+    void updateRemainingTimer();
     void drawAllCells();
     void openEmptyCells(int x, int y);
     void openAllCells();
