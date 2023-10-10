@@ -25,22 +25,22 @@ void GameplayService::initialize()
 
 void GameplayService::update()
 {
-	switch (GameService::getGameState())
-	{
-	case::GameState::GAMEPLAY:
-		gameplay_controller->update();
-		break;
-	}
+	gameplay_controller->update();
 }
 
 void GameplayService::render()
 {
-	switch (GameService::getGameState())
-	{
-	case::GameState::GAMEPLAY:
-		gameplay_controller->render();
-		break;
-	}
+	gameplay_controller->render();
+}
+
+int GameplayService::getMinesCount()
+{
+	return gameplay_controller->getMinesCount();
+}
+
+float GameplayService::getRemainingTime()
+{
+	return gameplay_controller->getRemainingTime();
 }
 
 GameplayController* GameplayService::getGameplayController()

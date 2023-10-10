@@ -24,6 +24,7 @@ void GameplayController::initialize()
 
     initializeBoardImage();
     initializeCellImage();
+    initializeCells();
     resetBoard();
 }
 
@@ -33,7 +34,7 @@ void GameplayController::createBoard()
     {
         for (int b = 0; b < number_of_colums; b++)
         {
-            board[a][b] = new Cell();
+            board[a][b] = new Cell(a, b);
         }
     }
 }
@@ -79,6 +80,17 @@ void GameplayController::initializeCellImage()
     }
 }
 
+void GameplayController::initializeCells()
+{
+    for (int a = 0; a < number_of_rows; a++)
+    {
+        for (int b = 0; b < number_of_colums; b++)
+        {
+            board[a][b]->initialize(cell_width, cell_height);
+        }
+    }
+}
+
 void GameplayController::scaleCellImage()
 {
     cell_width = calculateCellWidth();
@@ -105,6 +117,7 @@ void GameplayController::update()
 
 void GameplayController::render()
 {
+    ServiceLocator::getInstance()->getGraphicService()->drawBackground();
     game_window->draw(board_sprite);
     drawAllCells();
 }
@@ -115,35 +128,9 @@ void GameplayController::drawAllCells()
     {
         for (int col = 0; col < number_of_colums; ++col)
         {
-            drawCell(row, col);
+            board[row][col]->drawCell(&cell_sprite);
         }
     }
-}
-
-void GameplayController::drawCell(int row, int col)
-{
-    float x = cells_left_offset + col * cell_width;
-    float y = cells_top_offset + row * cell_height;
-
-    int index = static_cast<int>(board[row][col]->getCellType());
-
-    switch (board[row][col]->getCellState())
-    {
-    case::CellState::HIDDEN:
-        cell_sprite.setTextureRect(sf::IntRect(10 * tile_height, 0, tile_height, tile_height));
-        break;
-
-    case::CellState::OPEN:
-        cell_sprite.setTextureRect(sf::IntRect(index * tile_height, 0, tile_height, tile_height));
-        break;
-
-    case::CellState::FLAGGED:
-        cell_sprite.setTextureRect(sf::IntRect(11 * tile_height, 0, tile_height, tile_height));
-        break;
-    }
-
-    cell_sprite.setPosition(x, y);
-    game_window->draw(cell_sprite);
 }
 
 void GameplayController::handleMouseInteractions()
@@ -155,12 +142,12 @@ void GameplayController::handleMouseInteractions()
 
     if (event_service->pressedLeftMouseButton())
     {
-        openCell(cellIndex.x, cellIndex.y);
+        board[cellIndex.x][cellIndex.y]->openCell();
     }
 
     if (event_service->pressedRightMouseButton())
     {
-        flagCell(cellIndex.x, cellIndex.y);
+        board[cellIndex.x][cellIndex.y]->flagCell();
     }
 }
 
@@ -184,30 +171,6 @@ bool GameplayController::isValidCellIndex(sf::Vector2i cellIndex)
         cellIndex.y >= 0 && cellIndex.y < number_of_colums;
 }
 
-void GameplayController::openCell(int x, int y)
-{
-    if (board[x][y]->getCellState() != CellState::FLAGGED)
-    {
-        board[x][y]->setCellState(CellState::OPEN);
-        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-    }
-}
-
-void GameplayController::flagCell(int x, int y)
-{
-    switch (board[x][y]->getCellState())
-    {
-    case::CellState::FLAGGED:
-        board[x][y]->setCellState(CellState::HIDDEN);
-        break;
-    case::CellState::HIDDEN:
-        board[x][y]->setCellState(CellState::FLAGGED);
-        break;
-    }
-
-    ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
-}
-
 void GameplayController::restart() { resetBoard(); }
 
 void GameplayController::resetBoard()
@@ -216,20 +179,11 @@ void GameplayController::resetBoard()
     {
         for (int col = 0; col < number_of_colums; ++col)
         {
-            resetCell(row, col);
+            board[row][col]->reset();
         }
     }
 
-    move_timer = max_move_time;
-}
-
-void GameplayController::resetCell(int row, int col)
-{
-    std::srand(static_cast<unsigned int>(std::time(nullptr)));
-    int randomNumber = std::rand() % 9;
-
-    board[row][col]->setCellState(CellState::HIDDEN);
-    board[row][col]->setCellType(static_cast<CellType>(randomNumber));
+    remaining_time = max_level_duration;
 }
 
 void GameplayController::deleteBoard()
@@ -248,7 +202,7 @@ int GameplayController::getMinesCount()
     return mines_count;
 }
 
-float GameplayController::getRemainingTimer()
+float GameplayController::getRemainingTime()
 {
-    return move_timer;
+    return remaining_time;
 }
