@@ -5,10 +5,6 @@
 #include "../header/SoundService.h"
 #include "../header/EventService.h"
 
-InstructionsScreenUIController::InstructionsScreenUIController() { }
-
-InstructionsScreenUIController::~InstructionsScreenUIController() { }
-
 void InstructionsScreenUIController::initialize()
 {
     game_window = ServiceLocator::getInstance()->getGameWindow();

@@ -10,10 +10,6 @@ CreditsScreenUIController::CreditsScreenUIController()
     game_window = nullptr;
 }
 
-CreditsScreenUIController::~CreditsScreenUIController()
-{
-}
-
 void CreditsScreenUIController::initialize()
 {
     game_window = ServiceLocator::getInstance()->getGameWindow();

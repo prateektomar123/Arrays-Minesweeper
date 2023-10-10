@@ -10,8 +10,6 @@ MainMenuUIController::MainMenuUIController()
     game_window = nullptr;
 }
 
-MainMenuUIController::~MainMenuUIController() { }
-
 void MainMenuUIController::initialize()
 {
     game_window = ServiceLocator::getInstance()->getGameWindow();

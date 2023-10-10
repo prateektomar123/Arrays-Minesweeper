@@ -37,7 +37,6 @@ private:
 
 public:
 	MainMenuUIController();
-	~MainMenuUIController();
 
 	void initialize() override;
 	void update() override;

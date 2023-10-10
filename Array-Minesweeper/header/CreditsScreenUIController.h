@@ -38,7 +38,6 @@ private:
 
 public:
 	CreditsScreenUIController();
-	~CreditsScreenUIController();
 
 	void initialize();
 	void update();

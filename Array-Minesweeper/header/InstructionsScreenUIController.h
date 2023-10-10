@@ -43,8 +43,6 @@ private:
 	void drawInstructions();
 
 public:
-	InstructionsScreenUIController();
-	~InstructionsScreenUIController();
 
 	void initialize() override;
 	void update() override;

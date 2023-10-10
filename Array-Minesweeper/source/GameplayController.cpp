@@ -279,6 +279,11 @@ void GameplayController::openEmptyCells(int x, int y)
 
 void GameplayController::openAllCells()
 {
+    if (b_first_click)
+    {
+        populateBoard(0, 0);
+    }
+
     for (int a = 0; a < number_of_rows; ++a)
     {
         for (int b = 0; b < number_of_colums; ++b)
