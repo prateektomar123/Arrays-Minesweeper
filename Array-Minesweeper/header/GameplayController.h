@@ -11,7 +11,7 @@ private:
     static const int number_of_colums = 9;
 
     const int mines_count = 8;
-    const float max_move_time = 31.f;
+    const float max_level_duration = 301.f;
     const float restart_time = 11.f;
 
     const float cells_top_offset = 274.f;
@@ -29,7 +29,7 @@ private:
     float cell_width;
     float cell_height;
 
-    float move_timer;
+    float remaining_time;
     int flagged_cells;
 
     bool b_first_click;
@@ -57,6 +57,7 @@ private:
     float calculateBoardImageScaleFactor();
     void setBoardImagePosition();
     void initializeCellImage();
+    void initializeCells();
 
     void scaleCellImage();
     float calculateCellWidth();
@@ -68,9 +69,6 @@ private:
 
     void updateMoveTimer();
     void drawAllCells();
-    void drawCell(int row, int col);
-    void flagCell(int x, int y);
-    void openCell(int x, int y);
     void openEmptyCells(int x, int y);
     void openAllCells();
     void populateBoard(int x, int y);
@@ -78,7 +76,6 @@ private:
     void checkGameWinCondition();
     void gameOver();
     void resetBoard();
-    void resetCell(int row, int col);
     void resetVariables();
     void deleteBoard();
 
@@ -92,5 +89,5 @@ public:
 
 	void restart();
 	int getMinesCount();
-	float getRemainingTimer();
+	float getRemainingTime();
 };

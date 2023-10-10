@@ -36,17 +36,19 @@ void EventService::updateButtonsState()
 
 void EventService::updateLeftMouseButtonState()
 {
-    if (left_mouse_button_state == ButtonState::PRESSED && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
     {
-        left_mouse_button_state = ButtonState::HELD;
+        switch (left_mouse_button_state)
+        {
+        case ButtonState::RELEASED:
+            left_mouse_button_state = ButtonState::PRESSED;
+            break;
+        case ButtonState::PRESSED:
+            left_mouse_button_state = ButtonState::HELD;
+            break;
+        }
     }
-
-    if (left_mouse_button_state == ButtonState::RELEASED && sf::Mouse::isButtonPressed(sf::Mouse::Left))
-    {
-        left_mouse_button_state = ButtonState::PRESSED;
-    }
-
-    if (!sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    else
     {
         left_mouse_button_state = ButtonState::RELEASED;
     }
@@ -54,17 +56,19 @@ void EventService::updateLeftMouseButtonState()
 
 void EventService::updateRightMouseButtonState()
 {
-    if (right_mouse_button_state == ButtonState::PRESSED && sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right))
     {
-        right_mouse_button_state = ButtonState::HELD;
+        switch (right_mouse_button_state)
+        {
+        case ButtonState::RELEASED:
+            right_mouse_button_state = ButtonState::PRESSED;
+            break;
+        case ButtonState::PRESSED:
+            right_mouse_button_state = ButtonState::HELD;
+            break;
+        }
     }
-
-    if (right_mouse_button_state == ButtonState::RELEASED && sf::Mouse::isButtonPressed(sf::Mouse::Right))
-    {
-        right_mouse_button_state = ButtonState::PRESSED;
-    }
-
-    if (!sf::Mouse::isButtonPressed(sf::Mouse::Right))
+    else
     {
         right_mouse_button_state = ButtonState::RELEASED;
     }

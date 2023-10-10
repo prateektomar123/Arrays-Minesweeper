@@ -5,6 +5,8 @@
 #include "../header/GameplayController.h"
 #include "../header/SoundService.h"
 #include "../header/EventService.h"
+#include <sstream>
+#include <iomanip>
 
 GameplayUIController::GameplayUIController()
 {
@@ -74,20 +76,26 @@ void GameplayUIController::drawRestartButton()
 
 void GameplayUIController::drawMinesCount()
 {
-	int mines_count = ServiceLocator::getInstance()->getGameplayService()->getGameplayController()->getMinesCount();
+	int mines_count = ServiceLocator::getInstance()->getGameplayService()->getMinesCount();
+
+	std::stringstream stream;
+	stream << std::setw(3) << std::setfill('0') << mines_count;
+	std::string string_mine_count = stream.str();
 
 	sf::Vector2f mine_count_text_position(mine_text_left_offset, mine_text_top_offset);
-	std::string string_mine_count = std::to_string(mines_count);
 	ServiceLocator::getInstance()->getGraphicService()->drawText(string_mine_count, mine_count_text_position, font_size, FontType::DS_DIGIB, sf::Color::Red);
 }
 
 void GameplayUIController::drawRemainingTimer()
 {
-	int move_timer = ServiceLocator::getInstance()->getGameplayService()->getGameplayController()->getRemainingTimer();
+	int remaining_time = ServiceLocator::getInstance()->getGameplayService()->getRemainingTime();
 
-	sf::Vector2f move_timer_text_position(timer_text_left_offset, timer_text_top_offset);
-	std::string string_move_timer = std::to_string(static_cast<int>(move_timer));
-	ServiceLocator::getInstance()->getGraphicService()->drawText(string_move_timer, move_timer_text_position, font_size, FontType::DS_DIGIB, sf::Color::Red);
+	std::stringstream stream;
+	stream << std::setw(3) << std::setfill('0') << remaining_time;
+	std::string string_remaining_time = stream.str();
+
+	sf::Vector2f remaining_time_text_position(timer_text_left_offset, timer_text_top_offset);
+	ServiceLocator::getInstance()->getGraphicService()->drawText(string_remaining_time, remaining_time_text_position, font_size, FontType::DS_DIGIB, sf::Color::Red);
 }
 
 void GameplayUIController::handleButtonInteractions()
