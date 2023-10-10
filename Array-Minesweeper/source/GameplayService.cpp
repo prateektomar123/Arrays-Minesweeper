@@ -25,22 +25,12 @@ void GameplayService::initialize()
 
 void GameplayService::update()
 {
-	switch (GameService::getGameState())
-	{
-	case::GameState::GAMEPLAY:
-		gameplay_controller->update();
-		break;
-	}
+	gameplay_controller->update();
 }
 
 void GameplayService::render()
 {
-	switch (GameService::getGameState())
-	{
-	case::GameState::GAMEPLAY:
-		gameplay_controller->render();
-		break;
-	}
+	gameplay_controller->render();
 }
 
 GameplayController* GameplayService::getGameplayController()
