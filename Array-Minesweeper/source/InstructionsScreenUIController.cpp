@@ -58,8 +58,13 @@ void InstructionsScreenUIController::scaleButton(sf::Sprite* button_to_scale)
 
 void InstructionsScreenUIController::positionButtons()
 {
-    float x_position = (static_cast<float>(game_window->getSize().x) / 2) - button_width / 2;
+    float x_position = calculateLeftOffsetForButton();
     menu_button_sprite.setPosition({ x_position, 800.f });
+}
+
+float InstructionsScreenUIController::calculateLeftOffsetForButton()
+{
+    return (static_cast<float>(game_window->getSize().x) / 2) - button_width / 2;
 }
 
 void InstructionsScreenUIController::show() { }
