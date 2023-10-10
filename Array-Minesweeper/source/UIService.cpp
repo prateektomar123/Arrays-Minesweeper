@@ -2,6 +2,7 @@
 #include "../header/GameService.h"
 #include "../header/GraphicService.h"
 #include "../header/MainMenuUIController.h"
+#include "../header/InstructionsScreenUIController.h"
 #include "../header/SplashScreenUIController.h"
 #include "../header/GameplayUIController.h"
 #include "../header/CreditsScreenUIController.h"
@@ -10,6 +11,7 @@ UIService::UIService()
 { 
 	splash_screen_controller = nullptr;
 	main_menu_controller = nullptr;
+	instructions_screen_ui_controller = nullptr;
 	gameplay_ui_controller = nullptr;
 	credits_screen_ui_controller = nullptr;
 	game_window = nullptr;
@@ -21,6 +23,7 @@ void UIService::createControllers()
 {
 	splash_screen_controller = new SplashScreenUIController();
 	main_menu_controller = new MainMenuUIController();
+	instructions_screen_ui_controller = new InstructionsScreenUIController();
 	gameplay_ui_controller = new GameplayUIController();
 	credits_screen_ui_controller = new CreditsScreenUIController();
 }
@@ -46,6 +49,9 @@ void UIService::update()
 	case GameState::MAIN_MENU:
 		main_menu_controller->update();
 		break;
+	case GameState::INSTRUCTION:
+		instructions_screen_ui_controller->update();
+		break;
 	case GameState::GAMEPLAY:
 		gameplay_ui_controller->update();
 		break;
@@ -64,6 +70,9 @@ void UIService::render()
 		break;
 	case GameState::MAIN_MENU:
 		main_menu_controller->render();
+		break;
+	case GameState::INSTRUCTION:
+		instructions_screen_ui_controller->render();
 		break;
 	case GameState::GAMEPLAY:
 		gameplay_ui_controller->render();
@@ -84,8 +93,14 @@ void UIService::show()
 	case GameState::MAIN_MENU:
 		main_menu_controller->show();
 		break;
+	case GameState::INSTRUCTION:
+		instructions_screen_ui_controller->show();
+		break;
 	case GameState::GAMEPLAY:
 		gameplay_ui_controller->show();
+		break;
+	case GameState::CREDITS:
+		credits_screen_ui_controller->show();
 		break;
 	}
 }
@@ -94,6 +109,7 @@ void UIService::initializeControllers()
 {
 	splash_screen_controller->initialize();
 	main_menu_controller->initialize();
+	instructions_screen_ui_controller->initialize();
 	gameplay_ui_controller->initialize();
 	credits_screen_ui_controller->initialize();
 }
@@ -102,6 +118,7 @@ void UIService::destroy()
 {
 	delete(splash_screen_controller);
 	delete(main_menu_controller);
+	delete(instructions_screen_ui_controller);
 	delete(gameplay_ui_controller);
 	delete(credits_screen_ui_controller);
 }

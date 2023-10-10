@@ -6,6 +6,7 @@ enum class GameState
 	BOOT,
 	SPLASH_SCREEN,
 	MAIN_MENU,
+	INSTRUCTION,
 	GAMEPLAY,
 	CREDITS,
 };

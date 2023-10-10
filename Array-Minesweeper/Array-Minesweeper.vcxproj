@@ -142,7 +142,7 @@
     <ClCompile Include="source\GameService.cpp" />
     <ClCompile Include="source\GraphicService.cpp" />
     <ClCompile Include="source\GameplayService.cpp" />
-    <ClCompile Include="source\Instructions.cpp" />
+    <ClCompile Include="source\InstructionsScreenUIController.cpp" />
     <ClCompile Include="source\MainMenuUIController.cpp" />
     <ClCompile Include="source\ServiceLocator.cpp" />
     <ClCompile Include="source\SoundService.cpp" />
@@ -159,7 +159,7 @@
     <ClInclude Include="header\GameService.h" />
     <ClInclude Include="header\GraphicService.h" />
     <ClInclude Include="header\GameplayService.h" />
-    <ClInclude Include="header\Instructions.h" />
+    <ClInclude Include="header\InstructionsScreenUIController.h" />
     <ClInclude Include="header\IUIController.h" />
     <ClInclude Include="header\MainMenuUIController.h" />
     <ClInclude Include="header\ServiceLocator.h" />
