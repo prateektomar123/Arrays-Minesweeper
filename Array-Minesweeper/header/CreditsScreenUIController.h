@@ -11,8 +11,6 @@ private:
 	const float top_offset = 300.f;
 	const int font_size = 100;
 
-	bool mouse_button_pressed = false;
-
 	sf::RenderWindow* game_window;
 
 	sf::Texture quit_button_texture;

@@ -3,6 +3,7 @@
 #include "../header/GameService.h"
 #include "../header/GraphicService.h"
 #include "../header/SoundService.h"
+#include "../header/EventService.h"
 
 CreditsScreenUIController::CreditsScreenUIController()
 {
@@ -65,15 +66,7 @@ void CreditsScreenUIController::positionButtons()
 
 void CreditsScreenUIController::update()
 {
-    if (pressedMouseButton())
-    {
-        handleButtonInteractions();
-        mouse_button_pressed = true;
-    }
-    else
-    {
-        mouse_button_pressed = false;
-    }
+    handleButtonInteractions();
 }
 
 void CreditsScreenUIController::render()
@@ -105,7 +98,8 @@ void CreditsScreenUIController::handleButtonInteractions()
 
 bool CreditsScreenUIController::clickedButton(sf::Sprite* button_sprite, sf::Vector2f mouse_position)
 {
-    return button_sprite->getGlobalBounds().contains(mouse_position);
+    return ServiceLocator::getInstance()->getEventService()->pressedLeftMouseButton() &&
+        button_sprite->getGlobalBounds().contains(mouse_position);
 }
 
 void CreditsScreenUIController::onClickQuitButton()
