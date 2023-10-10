@@ -132,13 +132,14 @@ void GameplayController::updateRemainingTimer()
 
     if (remaining_time <= 1)
     {
-        if (b_game_over)
+        switch (board_state)
         {
+        case BoardState::GAME_OVER:
             GameService::setGameState(GameState::CREDITS);
-        }
-        else
-        {
+            break;
+        default:
             gameOver();
+            break;
         }
     }
 }
@@ -194,19 +195,26 @@ bool GameplayController::isValidCellIndex(sf::Vector2i cellIndex)
 
 void GameplayController::openCell(int x, int y)
 {
-    if (b_first_click)
+    if (board[x][y]->getCellState() == CellState::FLAGGED || board[x][y]->getCellState() == CellState::OPEN) return;
+
+    if (board_state == BoardState::FIRST_CELL)
     {
         populateBoard(x, y);
-        b_first_click = false;
+        board_state = BoardState::PLAYING;
     }
     
     switch (board[x][y]->getCellType())
     {
     case::CellType::EMPTY:
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
         openEmptyCells(x, y);
         break;
     case::CellType::MINE:
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
         gameOver();
+        break;
+    default:
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
         break;
     }
 
@@ -218,9 +226,11 @@ void GameplayController::flagCell(int x, int y)
     switch (board[x][y]->getCellState())
     {
     case::CellState::FLAGGED:
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
         flagged_cells--;
         break;
     case::CellState::HIDDEN:
+        ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
         flagged_cells++;
         break;
     }
@@ -230,9 +240,15 @@ void GameplayController::flagCell(int x, int y)
 
 void GameplayController::openEmptyCells(int x, int y)
 {
-    if (board[x][y]->getCellState() == CellState::OPEN) return;
-
-    board[x][y]->openCell(false);
+    switch (board[x][y]->getCellState())
+    {
+    case::CellState::OPEN:
+        return;
+    case::CellState::FLAGGED:
+        flagged_cells--;
+    default:
+        board[x][y]->openCell();
+    }
 
     for (int a = -1; a < 2; a++)
     {
@@ -254,7 +270,7 @@ void GameplayController::openEmptyCells(int x, int y)
 
 void GameplayController::openAllCells()
 {
-    if (b_first_click)
+    if (board_state == BoardState::FIRST_CELL)
     {
         populateBoard(0, 0);
     }
@@ -329,7 +345,7 @@ int GameplayController::countMinesAround(int x, int y)
 
 void GameplayController::checkGameWinCondition()
 {
-    if (b_game_over) return;
+    if (board_state == BoardState::GAME_OVER) return;
 
     int total_cell_count = number_of_rows * number_of_colums;
     int open_cell_count = 0;
@@ -355,7 +371,7 @@ void GameplayController::gameOver()
 {
     openAllCells();
 
-    b_game_over = true;
+    board_state = BoardState::GAME_OVER;
     remaining_time = restart_time;
 }
 
@@ -376,8 +392,7 @@ void GameplayController::resetBoard()
 
 void GameplayController::resetVariables()
 {
-    b_game_over = false;
-    b_first_click = true;
+    board_state = BoardState::FIRST_CELL;
     remaining_time = max_level_duration;
     flagged_cells = 0;
 }

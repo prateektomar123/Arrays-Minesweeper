@@ -4,6 +4,13 @@
 
 class Cell;
 
+enum class BoardState
+{
+    FIRST_CELL,     // The state when the player opens first cell.
+    PLAYING,        // The game is in progress.
+    GAME_OVER,      // The game is over.
+};
+
 class GameplayController
 {
 private:
@@ -32,12 +39,10 @@ private:
     float remaining_time;
     int flagged_cells;
 
-    bool b_first_click;
-    bool b_game_over;
-
     Cell* board[number_of_rows][number_of_colums];
 
     sf::RenderWindow* game_window;
+    BoardState board_state;
 
     // To generate random values.
     std::default_random_engine random_engine;
