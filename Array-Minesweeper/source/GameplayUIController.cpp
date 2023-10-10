@@ -76,7 +76,7 @@ void GameplayUIController::drawRestartButton()
 
 void GameplayUIController::drawMinesCount()
 {
-	int mines_count = ServiceLocator::getInstance()->getGameplayService()->getGameplayController()->getMinesCount();
+	int mines_count = ServiceLocator::getInstance()->getGameplayService()->getMinesCount();
 
 	std::stringstream stream;
 	stream << std::setw(3) << std::setfill('0') << mines_count;
@@ -88,7 +88,7 @@ void GameplayUIController::drawMinesCount()
 
 void GameplayUIController::drawRemainingTimer()
 {
-	int remaining_time = ServiceLocator::getInstance()->getGameplayService()->getGameplayController()->getRemainingTime();
+	int remaining_time = ServiceLocator::getInstance()->getGameplayService()->getRemainingTime();
 
 	std::stringstream stream;
 	stream << std::setw(3) << std::setfill('0') << remaining_time;

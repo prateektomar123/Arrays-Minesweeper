@@ -33,6 +33,16 @@ void GameplayService::render()
 	gameplay_controller->render();
 }
 
+int GameplayService::getMinesCount()
+{
+	return gameplay_controller->getMinesCount();
+}
+
+float GameplayService::getRemainingTime()
+{
+	return gameplay_controller->getRemainingTime();
+}
+
 GameplayController* GameplayService::getGameplayController()
 {
 	return gameplay_controller;

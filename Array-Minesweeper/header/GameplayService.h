@@ -18,5 +18,8 @@ public:
 	void update();
 	void render();
 
+	int getMinesCount();
+	float getRemainingTime();
+
 	GameplayController* getGameplayController();
 };
