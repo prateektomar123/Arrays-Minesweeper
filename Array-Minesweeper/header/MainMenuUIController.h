@@ -28,6 +28,7 @@ private:
 	void scaleAllButttons();
 	void scaleButton(sf::Sprite* button_to_scale);
 	void positionButtons();
+	float calculateLeftOffsetForButton();
 
 	void handleButtonInteractions();
 	bool clickedButton(sf::Sprite*, sf::Vector2f);
