@@ -134,8 +134,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="source\Gameplay\Board\Cell.cpp" />
+    <ClCompile Include="source\Gameplay\Board\BoardController.cpp" />
+    <ClCompile Include="source\Gameplay\Board\BoardView.cpp" />
+    <ClCompile Include="source\Gameplay\Cell\CellController.cpp" />
+    <ClCompile Include="source\Gameplay\Cell\CellModel.cpp" />
+    <ClCompile Include="source\Gameplay\Cell\CellView.cpp" />
     <ClCompile Include="source\Gameplay\GameplayController.cpp" />
+    <ClCompile Include="source\Gobal\TimeService.cpp" />
     <ClCompile Include="source\UI\Gameplay\GameplayUIController.cpp" />
     <ClCompile Include="source\Gameplay\GameplayService.cpp" />
     <ClCompile Include="source\Event\EventService.cpp" />
@@ -154,8 +159,13 @@
     <ClCompile Include="source\UI\UIService.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="header\Gameplay\Board\Cell.h" />
+    <ClInclude Include="header\Gameplay\Board\BoardController.h" />
+    <ClInclude Include="header\Gameplay\Board\BoardView.h" />
+    <ClInclude Include="header\Gameplay\Cell\CellController.h" />
+    <ClInclude Include="header\Gameplay\Cell\CellModel.h" />
+    <ClInclude Include="header\Gameplay\Cell\CellView.h" />
     <ClInclude Include="header\Gameplay\GameplayController.h" />
+    <ClInclude Include="header\Global\TimeService.h" />
     <ClInclude Include="header\UI\Gameplay\GameplayUIController.h" />
     <ClInclude Include="header\Gameplay\GameplayService.h" />
     <ClInclude Include="header\Event\EventService.h" />

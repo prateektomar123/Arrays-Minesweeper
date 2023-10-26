@@ -1,127 +1,136 @@
 #include "../../header/UI/Gameplay/GameplayUIController.h"
-#include "../../header/Main/GameService.h"
-#include "../../header/Main/GraphicService.h"
-#include "../../header/Sound/SoundService.h"
-#include "../../header/Event/EventService.h"
 #include "../../header/Global/Config.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Gameplay/GameplayService.h"
+#include "../../header/Sound/SoundService.h"
+#include "../../header/Main/GameService.h"
 #include <sstream>
 #include <iomanip>
 
 namespace UI
 {
-	namespace GameplayUI
-	{
-		using namespace Global;
-		using namespace Main;
-		using namespace UIElement;
-		using namespace Sound;
+    namespace GameplayUI
+    {
+        using namespace Main;
+        using namespace Sound;
+        using namespace UIElement;
+        using namespace Global;
 
-		GameplayUIController::GameplayUIController()
-		{
-			game_window = nullptr;
-		}
+        GameplayUIController::GameplayUIController()
+        {
+            createButton();
+            createTexts();
+        }
 
-		GameplayUIController::~GameplayUIController()
-		{
-		}
+        GameplayUIController::~GameplayUIController()
+        {
+            destroy();
+        }
 
-		void GameplayUIController::initialize()
-		{
-			game_window = ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
-			initializeButtonImage();
-		}
+        void GameplayUIController::initialize()
+        {
+            initializeButton();
+            initializeTexts();
+        }
 
-		void GameplayUIController::update()
-		{
-			handleButtonInteractions();
-		}
+        void GameplayUIController::createButton()
+        {
+            restart_button = new ButtonView();
+        }
 
-		void GameplayUIController::render()
-		{
-			drawRestartButton();
-			drawMinesCount();
-			drawRemainingTimer();
-		}
+        void GameplayUIController::createTexts()
+        {
+            mine_text = new TextView();
+            time_text = new TextView();
+        }
 
-		void GameplayUIController::show() { }
+        void GameplayUIController::initializeButton()
+        {
+            restart_button->initialize("Restart Button",
+                Config::restart_button_texture_path,
+                button_width, button_height,
+                sf::Vector2f(restart_button_left_offset, restart_button_top_offset));
 
-		void GameplayUIController::initializeButtonImage()
-		{
-			if (restart_button_texture.loadFromFile("assets/textures/cells.jpeg") &&
-				outscal_logo_texture.loadFromFile("assets/textures/outscal_logo_start.png"))
-			{
-				restart_button_texture.setSmooth(true);
-				outscal_logo_texture.setSmooth(true);
+            registerButtonCallback();
+        }
 
-				restart_button_sprite.setTexture(restart_button_texture);
-				restart_button_sprite.setTextureRect(sf::IntRect(10 * tile_height, 0, tile_height, tile_height));
-				outscal_logo_sprite.setTexture(outscal_logo_texture);
+        void GameplayUIController::initializeTexts()
+        {
+            initializeMineText();
+            initializeTimeText();
+        }
 
-				scaleButtonImage();
-				setButtonImagePosition();
-			}
-		}
+        void GameplayUIController::initializeMineText()
+        {
+            mine_text->initialize("000", sf::Vector2f(mine_text_left_offset, mine_text_top_offset), FontType::ROBOTO, font_size, text_color);
+        }
 
-		void GameplayUIController::scaleButtonImage()
-		{
-			restart_button_sprite.setScale(button_width / restart_button_sprite.getLocalBounds().width,
-				button_height / restart_button_sprite.getLocalBounds().height);
+        void GameplayUIController::initializeTimeText()
+        {
+            time_text->initialize("000", sf::Vector2f(time_text_left_offset, time_text_top_offset), FontType::ROBOTO, font_size, text_color);
+        }
 
-			outscal_logo_sprite.setScale(button_width / outscal_logo_sprite.getLocalBounds().width,
-				button_height / outscal_logo_sprite.getLocalBounds().height);
-		}
-		void GameplayUIController::setButtonImagePosition()
-		{
-			restart_button_sprite.setPosition(restart_button_left_offset, restart_button_top_offset);
-			outscal_logo_sprite.setPosition(restart_button_left_offset, restart_button_top_offset);
-		}
+        void GameplayUIController::update()
+        {
+            restart_button->update();
+            updateMineText();
+            updateTimeText();
+        }
 
-		void GameplayUIController::drawRestartButton()
-		{
-			game_window->draw(restart_button_sprite);
-			game_window->draw(outscal_logo_sprite);
-		}
+        void GameplayUIController::render()
+        {
+            restart_button->render();
+            mine_text->render();
+            time_text->render();
+        }
 
-		void GameplayUIController::drawMinesCount()
-		{
-			int mines_count = ServiceLocator::getInstance()->getGameplayService()->getMinesCount();
+        void GameplayUIController::show()
+        {
+            restart_button->show();
+            mine_text->show();
+            time_text->show();
+        }
 
-			std::stringstream stream;
-			stream << std::setw(3) << std::setfill('0') << mines_count;
-			std::string string_mine_count = stream.str();
+        void GameplayUIController::updateMineText()
+        {
+            int mines_count = ServiceLocator::getInstance()->getGameplayService()->getMinesCount();
+            
+            std::stringstream stream;
+            stream << std::setw(3) << std::setfill('0') << mines_count;
+            std::string string_mine_count = stream.str();
 
-			sf::Vector2f mine_count_text_position(mine_text_left_offset, mine_text_top_offset);
-			ServiceLocator::getInstance()->getGraphicService()->drawText(string_mine_count, mine_count_text_position, font_size, FontType::DS_DIGIB, sf::Color::Red);
-		}
+            mine_text->setText(string_mine_count);
+            mine_text->update();
+        }
 
-		void GameplayUIController::drawRemainingTimer()
-		{
-			int remaining_time = ServiceLocator::getInstance()->getGameplayService()->getRemainingTime();
+        void GameplayUIController::updateTimeText()
+        {
+            int remaining_time = ServiceLocator::getInstance()->getGameplayService()->getRemainingTime();
 
-			std::stringstream stream;
-			stream << std::setw(3) << std::setfill('0') << remaining_time;
-			std::string string_remaining_time = stream.str();
+            std::stringstream stream;
+            stream << std::setw(3) << std::setfill('0') << remaining_time;
+            std::string string_remaining_time = stream.str();
 
-			sf::Vector2f remaining_time_text_position(timer_text_left_offset, timer_text_top_offset);
-			ServiceLocator::getInstance()->getGraphicService()->drawText(string_remaining_time, remaining_time_text_position, font_size, FontType::DS_DIGIB, sf::Color::Red);
-		}
+            time_text->setText(string_remaining_time);
+            time_text->update();
+        }
 
-		void GameplayUIController::handleButtonInteractions()
-		{
-			EventService* event_service = ServiceLocator::getInstance()->getEventService();
-			sf::Vector2f mouse_position = sf::Vector2f(sf::Mouse::getPosition(*game_window));
+        void GameplayUIController::restartButtonCallback()
+        {
+            ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
+            ServiceLocator::getInstance()->getGameplayService()->startGame();
+        }
 
-			if (event_service->pressedLeftMouseButton() && clickedButton(&restart_button_sprite, mouse_position))
-			{
-				ServiceLocator::getInstance()->getGameplayService()->getGameplayController()->restart();
-				ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::BUTTON_CLICK);
-			}
-		}
+        void GameplayUIController::registerButtonCallback()
+        {
+            restart_button->registerCallbackFuntion(std::bind(&GameplayUIController::restartButtonCallback, this));
+        }
 
-		bool GameplayUIController::clickedButton(sf::Sprite* button_sprite, sf::Vector2f mouse_position)
-		{
-			return button_sprite->getGlobalBounds().contains(mouse_position);
-		}
-	}
+        void GameplayUIController::destroy()
+        {
+            delete (restart_button);
+            delete (mine_text);
+            delete (time_text);
+        }
+    }
 }

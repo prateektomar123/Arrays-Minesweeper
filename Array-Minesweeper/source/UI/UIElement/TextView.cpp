@@ -66,6 +66,9 @@ namespace UI
 			case FontType::DS_DIGIB:
 				text.setFont(font_DS_DIGIB);
 				break;
+			case FontType::ROBOTO:
+				text.setFont(font_DS_DIGIB);
+				break;
 			}
 		}
 

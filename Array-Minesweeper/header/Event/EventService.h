@@ -24,7 +24,7 @@ namespace Event
 		bool gameWindowWasClosed();
 		bool hasQuitGame();
 		bool isKeyboardEvent();
-		void updateButtonsState(ButtonState& button_state);
+		void updateButtonsState(ButtonState& button_state, sf::Mouse::Button button_type);
 
 	public:
 		EventService();

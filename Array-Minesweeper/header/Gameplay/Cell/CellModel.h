@@ -1,9 +1,9 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <sfml/Graphics.hpp>
 
 namespace Gameplay
 {
-    namespace Board
+    namespace Cell
     {
         enum class CellState
         {
@@ -26,40 +26,31 @@ namespace Gameplay
             MINE,
         };
 
-        class Cell
+        class CellModel
         {
         private:
-            const float cell_top_offset = 274.f;
-            const float cell_left_offset = 583.f;
-
-            const int tile_height = 32;
-            const int tile_width = 16;
-
-            sf::RenderWindow* game_window;
-
             CellState cell_state;
             CellType cell_type;
 
-            float cell_width;
-            float cell_height;
-
-            int x_index;
-            int y_index;
+            sf::Vector2i position;
             int mines_around;
 
         public:
-            Cell(int x, int y);
-
-            void initialize(float cell_width, float cell_height);
-            void drawCell(sf::Sprite* cell_sprite);
-            void flagCell();
-            void openCell();
+            CellModel(sf::Vector2i grid_position);
+            ~CellModel();
 
             CellState getCellState();
-            CellType getCellType();
             void setCellState(CellState state);
+
+            CellType getCellType();
             void setCellType(CellType type);
+
+            sf::Vector2i getCellPosition();
+            void setCellPosition(sf::Vector2i grid_position);
+
             int getMinesAround();
+            void setMinesAround(int mine_count);
+
             void reset();
         };
     }
