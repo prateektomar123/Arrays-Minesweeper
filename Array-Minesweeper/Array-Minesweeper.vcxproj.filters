@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="source\Gobal\ServiceLocator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,25 +57,40 @@
     <ClCompile Include="source\UI\UIElement\ButtonView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameplayService.cpp">
+    <ClCompile Include="source\Gameplay\Board\BoardController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameplayController.cpp">
+    <ClCompile Include="source\Gameplay\Board\BoardView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\Cell.cpp">
+    <ClCompile Include="source\Gameplay\Cell\CellController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\GameplayUIController.cpp">
+    <ClCompile Include="source\Gameplay\Cell\CellModel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\TimeService.cpp">
+    <ClCompile Include="source\Gameplay\Cell\CellView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\InstructionsScreenUIController.cpp">
+    <ClCompile Include="source\Gameplay\GameplayController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="source\CreditsScreenUIController.cpp">
+    <ClCompile Include="source\Gobal\TimeService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\Gameplay\GameplayUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Gameplay\GameplayService.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\Credits\CreditsScreenUIController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UI\Instructions\InstructionsScreenUIController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -128,28 +140,37 @@
     <ClInclude Include="header\UI\UIElement\ButtonView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\GameplayService.h">
+    <ClInclude Include="header\Gameplay\Board\BoardController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\GameplayController.h">
+    <ClInclude Include="header\Gameplay\Board\BoardView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\Cell.h">
+    <ClInclude Include="header\Gameplay\Cell\CellController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\GameplayUIController.h">
+    <ClInclude Include="header\Gameplay\Cell\CellModel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\TimeService.h">
+    <ClInclude Include="header\Gameplay\Cell\CellView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\InstructionsScreenUIController.h">
+    <ClInclude Include="header\Gameplay\GameplayController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\CreditsScreenUIController.h">
+    <ClInclude Include="header\Global\TimeService.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="header\IUIController.h">
+    <ClInclude Include="header\UI\Gameplay\GameplayUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Gameplay\GameplayService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\Credits\CreditsScreenUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\UI\Instructions\InstructionsScreenUIController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

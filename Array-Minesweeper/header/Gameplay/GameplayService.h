@@ -1,5 +1,7 @@
 #pragma once
 #include "../../header/Gameplay/GameplayController.h"
+#include "../../header/Gameplay/Cell/CellController.h"
+#include "../../header/UI/UIElement/ButtonView.h"
 
 namespace Gameplay
 {
@@ -20,6 +22,8 @@ namespace Gameplay
 		void render();
 
 		void startGame();
+		void gameOver();
+		void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
 
 		int getMinesCount();
 		float getRemainingTime();

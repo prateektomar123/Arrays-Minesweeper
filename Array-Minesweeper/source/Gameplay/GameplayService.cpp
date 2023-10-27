@@ -38,6 +38,16 @@ namespace Gameplay
 		gameplay_controller->restart();
 	}
 
+	void GameplayService::gameOver()
+	{
+		gameplay_controller->processGameOver();
+	}
+
+	void GameplayService::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
+	{
+		gameplay_controller->processCellInput(cell_controller, button_type);
+	}
+
 	int GameplayService::getMinesCount()
 	{
 		return gameplay_controller->getMinesCount();

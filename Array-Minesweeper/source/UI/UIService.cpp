@@ -7,24 +7,30 @@ namespace UI
 	using namespace Main;
 	using namespace MainMenu;
 	using namespace SplashScreen;
+	using namespace GameplayUI;
 	using namespace UIElement;
 	using namespace Interface;
-	using namespace GameplayUI;
+	using namespace Instructions;
+	using namespace Credits;
 
 	UIService::UIService()
 	{
-		splash_screen_controller = nullptr;
-		main_menu_controller = nullptr;
+		splash_screen_ui_controller = nullptr;
+		main_menu_ui_controller = nullptr;
+		instructions_screen_ui_controller = nullptr;
 		gameplay_ui_controller = nullptr;
+		credit_screen_ui_controller = nullptr;
 
 		createControllers();
 	}
 
 	void UIService::createControllers()
 	{
-		splash_screen_controller = new SplashScreenUIController();
-		main_menu_controller = new MainMenuUIController();
+		splash_screen_ui_controller = new SplashScreenUIController();
+		main_menu_ui_controller = new MainMenuUIController();
+		instructions_screen_ui_controller = new InstructionsScreenUIController();
 		gameplay_ui_controller = new GameplayUIController();
+		credit_screen_ui_controller = new CreditsScreenUIController();
 	}
 
 	UIService::~UIService()
@@ -58,9 +64,11 @@ namespace UI
 
 	void UIService::initializeControllers()
 	{
-		splash_screen_controller->initialize();
-		main_menu_controller->initialize();
+		splash_screen_ui_controller->initialize();
+		main_menu_ui_controller->initialize();
+		instructions_screen_ui_controller->initialize();
 		gameplay_ui_controller->initialize();
+		credit_screen_ui_controller->initialize();
 	}
 
 	IUIController* UIService::getCurrentUIController()
@@ -68,13 +76,19 @@ namespace UI
 		switch (GameService::getGameState())
 		{
 		case GameState::SPLASH_SCREEN:
-			return splash_screen_controller;
+			return splash_screen_ui_controller;
 
 		case GameState::MAIN_MENU:
-			return main_menu_controller;
+			return main_menu_ui_controller;
+
+		case GameState::INSTRUCTIONS:
+			return instructions_screen_ui_controller;
 
 		case GameState::GAMEPLAY:
 			return gameplay_ui_controller;
+
+		case GameState::CREDITS:
+			return credit_screen_ui_controller;
 
 		default:
 			return nullptr;
@@ -83,8 +97,10 @@ namespace UI
 
 	void UIService::destroy()
 	{
-		delete(splash_screen_controller);
-		delete(main_menu_controller);
+		delete(splash_screen_ui_controller);
+		delete(main_menu_ui_controller);
+		delete(instructions_screen_ui_controller);
 		delete(gameplay_ui_controller);
+		delete(credit_screen_ui_controller);
 	}
 }
