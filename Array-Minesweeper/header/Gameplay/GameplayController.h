@@ -10,7 +10,6 @@ namespace Gameplay
         const float max_level_duration = 301.f;
 
         float remaining_time;
-        Board::BoardController* board_controller;
 
         void updateRemainingTime();
  
