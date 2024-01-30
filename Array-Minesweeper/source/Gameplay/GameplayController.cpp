@@ -1,5 +1,5 @@
 #include "../../header/Gameplay/GameplayController.h"
-#include "../../header/Gameplay/Board/BoardController.h"
+#include "../../header/Gameplay/Board/BoardService.h"
 #include "../../header/Global/TimeService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Main/GameService.h"
@@ -12,11 +12,11 @@ namespace Gameplay
     using namespace Cell;
     using namespace UI::UIElement;
 
-    GameplayController::GameplayController() { board_controller = new BoardController(); }
+    GameplayController::GameplayController() {}
 
-    GameplayController::~GameplayController() { delete (board_controller); }
+    GameplayController::~GameplayController() {  }
 
-    void GameplayController::initialize() { board_controller->initialize(); }
+    void GameplayController::initialize() {  }
 
     void GameplayController::update()
     {
@@ -26,7 +26,7 @@ namespace Gameplay
         board_controller->update(); 
     }
 
-    void GameplayController::render() { board_controller->render(); }
+    void GameplayController::render() {  }
 
     void GameplayController::processCellInput(CellController* cell_controller, ButtonType button_type) 
     {
@@ -61,7 +61,7 @@ namespace Gameplay
 
     void GameplayController::restart() 
     { 
-        board_controller->reset(); 
+        ServiceLocator::getInstance()->getBoardService()->resetBoard();
         remaining_time = max_level_duration;
     }
 

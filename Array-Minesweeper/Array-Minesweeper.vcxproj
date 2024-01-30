@@ -135,6 +135,7 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="source\Gameplay\Board\BoardController.cpp" />
+    <ClCompile Include="source\Gameplay\Board\BoardService.cpp" />
     <ClCompile Include="source\Gameplay\Board\BoardView.cpp" />
     <ClCompile Include="source\Gameplay\Cell\CellController.cpp" />
     <ClCompile Include="source\Gameplay\Cell\CellModel.cpp" />
@@ -147,8 +148,8 @@
     <ClCompile Include="source\Event\EventService.cpp" />
     <ClCompile Include="source\Main\GameService.cpp" />
     <ClCompile Include="source\Gobal\Config.cpp" />
-    <ClCompile Include="source\Main\GraphicService.cpp" />
     <ClCompile Include="source\UI\Instructions\InstructionsScreenUIController.cpp" />
+    <ClCompile Include="source\Graphics\GraphicService.cpp" />
     <ClCompile Include="source\UI\MainMenu\MainMenuUIController.cpp" />
     <ClCompile Include="source\Gobal\ServiceLocator.cpp" />
     <ClCompile Include="source\Sound\SoundService.cpp" />
@@ -161,6 +162,7 @@
     <ClCompile Include="source\UI\UIService.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header\Gameplay\Board\BoardService.h" />
     <ClInclude Include="header\Gameplay\Board\BoardController.h" />
     <ClInclude Include="header\Gameplay\Board\BoardView.h" />
     <ClInclude Include="header\Gameplay\Cell\CellController.h" />
@@ -174,8 +176,8 @@
     <ClInclude Include="header\Event\EventService.h" />
     <ClInclude Include="header\Main\GameService.h" />
     <ClInclude Include="header\Global\Config.h" />
-    <ClInclude Include="header\Main\GraphicService.h" />
     <ClInclude Include="header\UI\Instructions\InstructionsScreenUIController.h" />
+    <ClInclude Include="header\Graphics\GraphicService.h" />
     <ClInclude Include="header\UI\Interface\IUIController.h" />
     <ClInclude Include="header\UI\MainMenu\MainMenuUIController.h" />
     <ClInclude Include="header\Global\ServiceLocator.h" />

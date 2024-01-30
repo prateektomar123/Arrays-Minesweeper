@@ -13,7 +13,6 @@ namespace Gameplay
         const float restart_time = 11.f;
 
         float remaining_time;
-        Board::BoardController* board_controller;
 
         void updateRemainingTime();
         bool isGameOver();
