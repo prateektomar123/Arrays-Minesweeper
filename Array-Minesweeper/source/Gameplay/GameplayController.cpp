@@ -1,12 +1,13 @@
 #include "../../header/Gameplay/GameplayController.h"
 #include "../../header/Gameplay/Board/BoardService.h"
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 #include "../../header/Global/ServiceLocator.h"
 
 namespace Gameplay
 {
     using namespace Board;
     using namespace Global;
+    using namespace Time;
 
     GameplayController::GameplayController() {}
 
