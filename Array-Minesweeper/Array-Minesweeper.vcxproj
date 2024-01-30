@@ -147,7 +147,7 @@
     <ClCompile Include="source\Event\EventService.cpp" />
     <ClCompile Include="source\Main\GameService.cpp" />
     <ClCompile Include="source\Gobal\Config.cpp" />
-    <ClCompile Include="source\Main\GraphicService.cpp" />
+    <ClCompile Include="source\Graphics\GraphicService.cpp" />
     <ClCompile Include="source\UI\MainMenu\MainMenuUIController.cpp" />
     <ClCompile Include="source\Gobal\ServiceLocator.cpp" />
     <ClCompile Include="source\Sound\SoundService.cpp" />
@@ -173,7 +173,7 @@
     <ClInclude Include="header\Event\EventService.h" />
     <ClInclude Include="header\Main\GameService.h" />
     <ClInclude Include="header\Global\Config.h" />
-    <ClInclude Include="header\Main\GraphicService.h" />
+    <ClInclude Include="header\Graphics\GraphicService.h" />
     <ClInclude Include="header\UI\Interface\IUIController.h" />
     <ClInclude Include="header\UI\MainMenu\MainMenuUIController.h" />
     <ClInclude Include="header\Global\ServiceLocator.h" />
