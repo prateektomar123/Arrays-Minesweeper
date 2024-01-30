@@ -62,6 +62,8 @@ namespace Gameplay
 
     void GameplayController::updateRemainingTime()
     {
+        if (game_end_type == GameEndType::WON)
+            return;
         remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
     }
 
@@ -75,8 +77,7 @@ namespace Gameplay
 
     void GameplayController::gameWon()
     {
-        game_end_type = GameEndType::WON; //--------------------------------------------------------USELESS
-        ServiceLocator::getInstance()->getTimeService()->setPauseTimer(true);
+        game_end_type = GameEndType::WON;
         board_service->onGameWon();
     }
 
@@ -89,7 +90,6 @@ namespace Gameplay
         game_end_type = GameEndType::NONE;
         board_service->resetBoard();
         remaining_time = max_level_duration;
-        ServiceLocator::getInstance()->getTimeService()->setPauseTimer(false);
     }
 
     int GameplayController::getMinesCount() { return board_service->getMinesCount(); }

@@ -6,7 +6,6 @@ namespace Time
 	{
 		previous_time = std::chrono::steady_clock::now();
 		delta_time = 0;
-		isTimerPause = false;
 	}
 
 	void TimeService::update()
@@ -19,11 +18,6 @@ namespace Time
 		return delta_time;
 	}
 
-	void TimeService::setPauseTimer(bool newPause)
-	{
-		isTimerPause = newPause;
-	}
-
 	void TimeService::updateDeltaTime()
 	{
 		delta_time = calculateDeltaTime();
@@ -32,10 +26,6 @@ namespace Time
 
 	float TimeService::calculateDeltaTime()
 	{
-		if (isTimerPause)
-		{
-			return 0;
-		}
 		// Calculate time difference in microseconds between the current and previous frame.
 		int delta = std::chrono::duration_cast<std::chrono::microseconds>(
 			std::chrono::steady_clock::now() - previous_time).count();
