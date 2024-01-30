@@ -10,6 +10,8 @@ namespace Main
 		SPLASH_SCREEN,
 		MAIN_MENU,
 		GAMEPLAY,
+		INSTRUCTIONS,
+		CREDITS,
 	};
 
 	class GameService

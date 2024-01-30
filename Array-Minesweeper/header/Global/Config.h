@@ -23,5 +23,7 @@ namespace Global
 		static const sf::String background_music_path;
 		static const sf::String button_click_sound_path;
 		static const sf::String flag_sound_path;
+
+		static const sf::String menu_button_texture_path;
 	};
 }
