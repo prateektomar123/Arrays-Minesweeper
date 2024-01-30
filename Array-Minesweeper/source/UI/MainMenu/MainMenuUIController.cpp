@@ -12,6 +12,7 @@ namespace UI
     {
         using namespace Global;
         using namespace Graphics;
+        using namespace Main;
         using namespace UIElement;
         using namespace Sound;
 
