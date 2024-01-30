@@ -1,7 +1,7 @@
 #pragma once
 #include <chrono>
 
-namespace Global
+namespace Time
 {
 	/*
 	// The TimeService class helps keep track of time in game and calculate delta time.
@@ -19,6 +19,7 @@ namespace Global
 		std::chrono::time_point<std::chrono::steady_clock> previous_time;
 
 		float delta_time;
+		bool isTimerPause;
 
 		void updateDeltaTime();
 		float calculateDeltaTime();
@@ -30,5 +31,7 @@ namespace Global
 		void update();
 
 		float getDeltaTime();
+
+		void setPauseTimer(bool newPause);
 	};
 }

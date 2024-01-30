@@ -5,7 +5,7 @@
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Gameplay/GameplayService.h"
 #include "../../header/Gameplay/Board/BoardService.h"
-#include "../../header/Global/TimeService.h"
+#include "../../header/Time/TimeService.h"
 
 namespace Global
 {
@@ -17,7 +17,7 @@ namespace Global
         Sound::SoundService* sound_service;
         UI::UIService* ui_service;
         Gameplay::GameplayService* gameplay_service;
-        Global::TimeService* time_service;
+        Time::TimeService* time_service;
         Gameplay::Board::BoardService* board_service;
 
         ServiceLocator();
@@ -38,7 +38,7 @@ namespace Global
         Sound::SoundService* getSoundService();
         UI::UIService* getUIService();
         Gameplay::GameplayService* getGameplayService();
-        Global::TimeService* getTimeService();
+        Time::TimeService* getTimeService();
         Gameplay::Board::BoardService* getBoardService();
         void deleteServiceLocator();
     };

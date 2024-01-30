@@ -22,7 +22,16 @@ namespace Gameplay
             void update();
             void render();
 
+            void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
+
+            BoardState getBoardState();
+            void setBoardState(BoardState state);
             void resetBoard();
+
+            int getMinesCount();
+            bool areAllCellOpen();
+            void onBeginGameOverTimer();
+            void onGameWon();
         };
     }
 }

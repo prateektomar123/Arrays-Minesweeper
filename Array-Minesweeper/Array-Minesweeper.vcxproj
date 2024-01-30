@@ -141,7 +141,7 @@
     <ClCompile Include="source\Gameplay\Cell\CellModel.cpp" />
     <ClCompile Include="source\Gameplay\Cell\CellView.cpp" />
     <ClCompile Include="source\Gameplay\GameplayController.cpp" />
-    <ClCompile Include="source\Gobal\TimeService.cpp" />
+    <ClCompile Include="source\Time\TimeService.cpp" />
     <ClCompile Include="source\UI\Credits\CreditsScreenUIController.cpp" />
     <ClCompile Include="source\UI\Gameplay\GameplayUIController.cpp" />
     <ClCompile Include="source\Gameplay\GameplayService.cpp" />
@@ -169,7 +169,7 @@
     <ClInclude Include="header\Gameplay\Cell\CellModel.h" />
     <ClInclude Include="header\Gameplay\Cell\CellView.h" />
     <ClInclude Include="header\Gameplay\GameplayController.h" />
-    <ClInclude Include="header\Global\TimeService.h" />
+    <ClInclude Include="header\Time\TimeService.h" />
     <ClInclude Include="header\UI\Credits\CreditsScreenUIController.h" />
     <ClInclude Include="header\UI\Gameplay\GameplayUIController.h" />
     <ClInclude Include="header\Gameplay\GameplayService.h" />

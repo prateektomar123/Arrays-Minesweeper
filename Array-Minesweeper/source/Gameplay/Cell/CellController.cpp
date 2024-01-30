@@ -39,6 +39,12 @@ namespace Gameplay
 
 		void CellController::flagCell()
 		{
+			if (ServiceLocator::getInstance()->getBoardService()->getBoardState() == Gameplay::Board::BoardState::COMPLETED)
+			{
+				cell_model->setCellState(CellState::FLAGGED);
+				return;
+			}
+
 			switch (cell_model->getCellState())
 			{
 			case::Gameplay::Cell::CellState::FLAGGED:

@@ -22,10 +22,12 @@ namespace Gameplay
 		void render();
 
 		void startGame();
-		void gameOver();
 		void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
 
 		int getMinesCount();
 		float getRemainingTime();
+		
+		void onCellOpen();
+		void onBlast();
 	};
 }

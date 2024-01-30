@@ -1,6 +1,6 @@
 #include "../../header/UI/Credits/CreditsScreenUIController.h"
 #include "../../header/Main/GameService.h"
-#include "../../header/Main/GraphicService.h"
+#include "../../header/Graphics/GraphicService.h"
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Event/EventService.h"
 #include "../../header/Global/Config.h"
@@ -13,6 +13,7 @@ namespace UI
         using namespace Global;
         using namespace UIElement;
         using namespace Main;
+        using namespace Graphics;
         using namespace Sound;
 
         CreditsScreenUIController::CreditsScreenUIController()

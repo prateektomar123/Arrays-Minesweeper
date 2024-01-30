@@ -1,7 +1,6 @@
 #pragma once
 #include <sfml/Graphics.hpp>
 #include "../../header/Gameplay/Cell/CellController.h"
-#include "../../header/Gameplay/Cell/CellController.h"
 #include "../../header/UI/UIElement/ButtonView.h"
 #include <random>
 
@@ -15,7 +14,7 @@ namespace Gameplay
         {
             FIRST_CELL,     // The state when the player opens first cell.
             PLAYING,        // The game is in progress.
-            GAME_OVER,      // The game is over.
+            COMPLETED,      // The game is over.
         };
 
         class BoardController
@@ -23,7 +22,7 @@ namespace Gameplay
         public:
             static const int number_of_rows = 9;
             static const int number_of_colums = 9;
-            static const int mines_count = 8;
+            static const int mines_count = 80;
 
             BoardController();
             ~BoardController();
@@ -39,6 +38,11 @@ namespace Gameplay
             void setBoardState(BoardState state);
 
             int getMinesCount();
+            bool areAllCellOpen();
+
+            void onBeginGameOverTimer();
+            void onGameWon();
+
 
         private:
             BoardView* board_view;
@@ -63,6 +67,7 @@ namespace Gameplay
 
             void flagCell(sf::Vector2i cell_position);
             void openCell(sf::Vector2i cell_position);
+            void flagAllMines();
 
             void processCellType(sf::Vector2i cell_position);
             void processEmptyCell(sf::Vector2i cell_position);
@@ -72,8 +77,7 @@ namespace Gameplay
             void openAllCells();
             bool isValidCellPosition(sf::Vector2i cell_position);
 
-            bool isGameWin();
-            void gameOver();
+            
             void resetBoard();
             void deleteBoard();
             void destroy();

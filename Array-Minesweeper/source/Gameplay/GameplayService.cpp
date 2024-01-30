@@ -38,11 +38,6 @@ namespace Gameplay
 		gameplay_controller->restart();
 	}
 
-	void GameplayService::gameOver()
-	{
-		gameplay_controller->processGameOver();
-	}
-
 	void GameplayService::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
 	{
 		gameplay_controller->processCellInput(cell_controller, button_type);
@@ -61,5 +56,15 @@ namespace Gameplay
 	void GameplayService::destroy()
 	{
 		delete(gameplay_controller);
+	}
+
+	void GameplayService::onCellOpen()
+	{
+		gameplay_controller->onCellOpen();
+	}
+
+	void GameplayService::onBlast()
+	{
+		gameplay_controller->onBlast();
 	}
 }

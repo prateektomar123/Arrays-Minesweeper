@@ -67,8 +67,6 @@ namespace Gameplay
 					board[row][col]->update();
 				}
 			}
-
-			if (board_state != BoardState::GAME_OVER && isGameWin()) gameOver();
 		}
 
 		void BoardController::render()
@@ -86,6 +84,9 @@ namespace Gameplay
 
 		void BoardController::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
 		{
+			if (board_state == BoardState::COMPLETED)
+				return;
+
 			switch (button_type)
 			{
 			case UI::UIElement::ButtonType::LEFT_MOUSE_BUTTON:
@@ -182,6 +183,19 @@ namespace Gameplay
 
 			processCellType(cell_position);
 			board[cell_position.x][cell_position.y]->openCell();
+			ServiceLocator::getInstance()->getGameplayService()->onCellOpen();
+		}
+
+		void BoardController::flagAllMines()
+		{
+			for (int row = 0; row < number_of_rows; ++row)
+			{
+				for (int col = 0; col < number_of_colums; ++col)
+				{
+					if (board[row][col]->getCellType() == CellType::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
+						flagCell(sf::Vector2i(row, col));
+				}
+			}
 		}
 
 		void BoardController::processCellType(sf::Vector2i cell_position)
@@ -209,7 +223,7 @@ namespace Gameplay
 		void BoardController::processMineCell(sf::Vector2i cell_position)
 		{
 			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
-			gameOver();
+			ServiceLocator::getInstance()->getGameplayService()->onBlast();
 		}
 
 		void BoardController::openEmptyCells(sf::Vector2i cell_position)
@@ -257,7 +271,7 @@ namespace Gameplay
 			return (cell_position.x >= 0 && cell_position.y >= 0 && cell_position.x < number_of_colums && cell_position.y < number_of_rows);
 		}
 
-		bool BoardController::isGameWin()
+		bool BoardController::areAllCellOpen()
 		{
 			int total_cell_count = number_of_rows * number_of_colums;
 			int open_cell_count = 0;
@@ -276,11 +290,32 @@ namespace Gameplay
 			return (total_cell_count - open_cell_count == mines_count);
 		}
 
-		void BoardController::gameOver()
+		void BoardController::onBeginGameOverTimer()
 		{
-			openAllCells();
-			ServiceLocator::getInstance()->getGameplayService()->gameOver();
+
+			switch (ServiceLocator::getInstance()->getBoardService()->getBoardState())
+			{
+			case Gameplay::Board::BoardState::FIRST_CELL:
+				populateBoard(sf::Vector2i(0, 0));
+				openAllCells();
+				break;
+			case Gameplay::Board::BoardState::PLAYING:
+				openAllCells();
+				break;
+			case Gameplay::Board::BoardState::COMPLETED:
+				break;
+			default:
+				break;
+			}
 		}
+
+		void BoardController::onGameWon()
+		{
+			flagAllMines();
+			setBoardState(BoardState::COMPLETED);
+		}
+
+
 
 		void BoardController::reset()
 		{
