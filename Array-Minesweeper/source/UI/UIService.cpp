@@ -83,6 +83,7 @@ namespace UI
 
 		case GameState::GAMEPLAY:
 			return gameplay_ui_controller;
+
 		case GameState::INSTRUCTIONS:
 			return instructions_screen_controller;
 
