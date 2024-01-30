@@ -15,7 +15,6 @@ namespace UI
         using namespace Main;
         using namespace UIElement;
         using namespace Sound;
-        using namespace Main;
 
         MainMenuUIController::MainMenuUIController()
         {
