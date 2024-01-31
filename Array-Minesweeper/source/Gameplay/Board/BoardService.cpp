@@ -34,6 +34,11 @@ namespace Gameplay
 			board_controller->render();
 		}
 
+		int BoardService::getMinesCount()
+		{
+			return board_controller->mines_count;
+		}
+
 
 		void BoardService::resetBoard()
 		{

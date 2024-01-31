@@ -30,7 +30,10 @@ namespace Gameplay
         remaining_time = max_level_duration;
     }
 
-    int GameplayController::getMinesCount() { return BoardController::mines_count; }
+    int GameplayController::getMinesCount() 
+    {
+        return ServiceLocator::getInstance()->getBoardService()->getMinesCount();
+    }
 
     float GameplayController::getRemainingTime() { return remaining_time; }
 }
