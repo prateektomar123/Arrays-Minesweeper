@@ -46,16 +46,16 @@ namespace Gameplay
 
         void CellView::update()
         {
-            updateCellTexture();
             cell_button->update();
         }
 
 		void CellView::render()
 		{
+            setCellTexture();
             cell_button->render();
 		}
 
-        void CellView::updateCellTexture()
+        void CellView::setCellTexture()
         {
             int index = static_cast<int>(cell_controller->getCellType());
 
