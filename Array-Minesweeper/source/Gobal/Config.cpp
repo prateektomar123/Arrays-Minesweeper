@@ -30,6 +30,7 @@ namespace Global
 
 	const sf::String Config::flag_sound_path = "assets/sounds/flag_sound.wav";
 	
+
 	const sf::String Config::menu_button_texture_path = "assets/textures/menu_button.png";
 
 }
