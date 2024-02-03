@@ -31,6 +31,6 @@ namespace Global
 	const sf::String Config::button_click_sound_path = "assets/sounds/button_click_sound.wav";
 
 	const sf::String Config::flag_sound_path = "assets/sounds/flag_sound.wav";
-
+	
 	const sf::String Config::explosion_sound_path = "assets/sounds/explosion_sound.wav";
 }
