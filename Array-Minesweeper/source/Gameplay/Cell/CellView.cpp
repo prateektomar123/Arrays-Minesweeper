@@ -32,11 +32,9 @@ namespace Gameplay
 
         void CellView::initializeButtonImage(float width, float height)
         {
-	        std::cout << "Width: " << width << "Height: " << height;
+	        sf::Vector2f cell_screen_position = getCellScreenPosition(width, height);
 
-            sf::Vector2f cell_screen_position = getCellScreenPosition(width, height);
-
-            cell_button->initialize("Cell", Config::cells_texture_path, width*12, height, cell_screen_position);
+            cell_button->initialize("Cell", Config::cells_texture_path, width*slice_count, height, cell_screen_position);
 
             registerButtonCallback();
         }
