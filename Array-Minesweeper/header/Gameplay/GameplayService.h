@@ -8,7 +8,7 @@ namespace Gameplay
 	private:
 		GameplayController* gameplay_controller;
 
-		void createControllers();
+		void createController();
 		void destroy();
 
 	public:

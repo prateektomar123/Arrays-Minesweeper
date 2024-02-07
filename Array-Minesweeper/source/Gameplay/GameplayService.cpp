@@ -5,7 +5,7 @@ namespace Gameplay
 	GameplayService::GameplayService()
 	{
 		gameplay_controller = nullptr;
-		createControllers();
+		createController();
 	}
 
 	GameplayService::~GameplayService()
@@ -13,7 +13,7 @@ namespace Gameplay
 		destroy();
 	}
 
-	void GameplayService::createControllers()
+	void GameplayService::createController()
 	{
 		gameplay_controller = new GameplayController();
 	}

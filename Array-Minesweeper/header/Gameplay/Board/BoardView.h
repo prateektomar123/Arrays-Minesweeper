@@ -10,14 +10,9 @@ namespace Gameplay
         class BoardView
         {
         private:
-            const float cells_left_offset = 583.f;
-            const float cells_top_offset = 274.f;
 
             const float board_width_offset = 115.f;
-            const float board_height_offset = 325.f;
-
-            const int tile_width = 16;
-            const int tile_height = 32;
+            const float board_height_offset = 329.f;
 
             const float board_width = 866.f;
             const float board_height = 1080.f;

@@ -16,13 +16,13 @@ namespace Gameplay
             const float cell_texture_width = 384;
             const float cell_texture_height = 32;
 
-            const int tile_height = 32;
-            const int tile_width = 16;
+        	int tile_size = 32;
 
             UI::UIElement::ButtonView* cell_button;
             CellController* cell_controller;
 
             void initializeButtonImage(float width, float height);
+            sf::Vector2f getCellScreenPosition(float width, float height);
             void setCellTexture();
             void registerButtonCallback();
             void cellButtonCallback(UI::UIElement::ButtonType button_type);
