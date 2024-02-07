@@ -20,8 +20,8 @@ namespace Gameplay
         class BoardController
         {
         public:
-            static const int number_of_rows = 32;
-            static const int number_of_colums = 32;
+            static const int number_of_rows = 9;
+            static const int number_of_colums = 9;
             static const int mines_count = 8;
 
             BoardController();
@@ -38,11 +38,10 @@ namespace Gameplay
             void setBoardState(BoardState state);
 
             int getMinesCount();
-            bool areAllCellOpen();
 
-            void onBeginGameOverTimer();
-            void onGameWon();
-
+            void flagAllMines();
+            void openAllCells();
+            void showBoard();
 
         private:
             BoardView* board_view;
@@ -67,14 +66,13 @@ namespace Gameplay
 
             void flagCell(sf::Vector2i cell_position);
             void openCell(sf::Vector2i cell_position);
-            void flagAllMines();
+            bool areAllCellOpen();
 
             void processCellType(sf::Vector2i cell_position);
             void processEmptyCell(sf::Vector2i cell_position);
             void processMineCell(sf::Vector2i cell_position);
 
             void openEmptyCells(sf::Vector2i cell_position);
-            void openAllCells();
             bool isValidCellPosition(sf::Vector2i cell_position);
 
             

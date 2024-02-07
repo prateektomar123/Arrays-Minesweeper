@@ -172,18 +172,20 @@ namespace Gameplay
 
 		void BoardController::openCell(sf::Vector2i cell_position)
 		{
-			if (board[cell_position.x][cell_position.y]->getCellState() == CellState::FLAGGED || 
-				board[cell_position.x][cell_position.y]->getCellState() == CellState::OPEN) return;
-
-			if (board_state == BoardState::FIRST_CELL)
+			if (board[cell_position.x][cell_position.y]->canOpenCell())
 			{
-				populateBoard(cell_position);
-				board_state = BoardState::PLAYING;
-			}
+				if (board_state == BoardState::FIRST_CELL)
+				{
+					populateBoard(cell_position);
+					board_state = BoardState::PLAYING;
+				}
 
-			processCellType(cell_position);
-			board[cell_position.x][cell_position.y]->openCell();
-			ServiceLocator::getInstance()->getGameplayService()->onCellOpen();
+				processCellType(cell_position);
+				board[cell_position.x][cell_position.y]->openCell();
+
+				if (areAllCellOpen())
+					ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::WON);
+			}
 		}
 
 		void BoardController::flagAllMines()
@@ -223,7 +225,7 @@ namespace Gameplay
 		void BoardController::processMineCell(sf::Vector2i cell_position)
 		{
 			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
-			ServiceLocator::getInstance()->getGameplayService()->onBlast();
+			ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::LOST);
 		}
 
 		void BoardController::openEmptyCells(sf::Vector2i cell_position)
@@ -290,7 +292,7 @@ namespace Gameplay
 			return (total_cell_count - open_cell_count == mines_count);
 		}
 
-		void BoardController::onBeginGameOverTimer()
+		void BoardController::showBoard()
 		{
 
 			switch (ServiceLocator::getInstance()->getBoardService()->getBoardState())
@@ -308,13 +310,6 @@ namespace Gameplay
 				break;
 			}
 		}
-
-		void BoardController::onGameWon()
-		{
-			flagAllMines();
-			setBoardState(BoardState::COMPLETED);
-		}
-
 
 
 		void BoardController::reset()

@@ -38,9 +38,9 @@ namespace Gameplay
 		gameplay_controller->restart();
 	}
 
-	void GameplayService::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
+	void GameplayService::endGame(GameResult result)
 	{
-		gameplay_controller->processCellInput(cell_controller, button_type);
+		gameplay_controller->endGame(result);
 	}
 
 	int GameplayService::getMinesCount()
@@ -56,15 +56,5 @@ namespace Gameplay
 	void GameplayService::destroy()
 	{
 		delete(gameplay_controller);
-	}
-
-	void GameplayService::onCellOpen()
-	{
-		gameplay_controller->onCellOpen();
-	}
-
-	void GameplayService::onBlast()
-	{
-		gameplay_controller->onBlast();
 	}
 }

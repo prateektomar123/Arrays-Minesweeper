@@ -8,12 +8,13 @@ namespace Gameplay
 {
     using namespace Gameplay::Board;
 
-    enum class GameEndType
+    enum class GameResult
     {
         NONE,
-        OVER,
-        WON
+        WON,
+        LOST
     };
+
     class GameplayController
     {
     private:
@@ -22,14 +23,15 @@ namespace Gameplay
         BoardService* board_service;
 
         float remaining_time;
-        GameEndType game_end_type;
+        GameResult game_result;
 
         void updateRemainingTime();
         bool isTimeOver();
-        void gameOver();
-        void gameWon();
-        void processTimerOver();
+        void showCredits();;
         void beginGameOverTimer();
+
+    	void gameWon();
+        void gameLost();
  
     public:
         ~GameplayController();
@@ -38,13 +40,10 @@ namespace Gameplay
         void update();
         void render();
 
-        void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
-
         void restart();
+        void endGame(GameResult result);
+
         int getMinesCount();
         float getRemainingTime();
-        
-        void onCellOpen();
-        void onBlast();
     };
 }

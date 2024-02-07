@@ -61,6 +61,11 @@ namespace Gameplay
 			setCellState(CellState::OPEN);
 		}
 
+		bool CellController::canOpenCell()
+		{
+			return cell_model->getCellState() != CellState::FLAGGED && cell_model->getCellState() != CellState::OPEN;
+		}
+
 		CellState CellController::getCellState()
 		{
 			return cell_model->getCellState();

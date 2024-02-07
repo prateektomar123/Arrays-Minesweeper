@@ -6,6 +6,8 @@
 
 namespace Gameplay
 {
+    enum class GameResult;
+
     namespace Board
     {
         class BoardService
@@ -29,9 +31,9 @@ namespace Gameplay
             void resetBoard();
 
             int getMinesCount();
-            bool areAllCellOpen();
-            void onBeginGameOverTimer();
-            void onGameWon();
+
+            void flagAllMines();
+            void showBoard();
         };
     }
 }

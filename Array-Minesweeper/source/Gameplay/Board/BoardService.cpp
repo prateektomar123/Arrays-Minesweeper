@@ -1,5 +1,7 @@
 #include "../../header/Gameplay/Board/BoardService.h"
 
+#include "../../../header/Gameplay/GameplayController.h"
+
 namespace Gameplay
 {
 	namespace Board
@@ -59,28 +61,14 @@ namespace Gameplay
 			return board_controller->getMinesCount();
 		}
 
-		bool BoardService::areAllCellOpen()
-		{
-			return board_controller->areAllCellOpen();
-		}
+		void BoardService::flagAllMines() { board_controller->flagAllMines(); }
 
-		void BoardService::onBeginGameOverTimer()
-		{
-			board_controller->onBeginGameOverTimer();
-		}
-
-		void BoardService::onGameWon()
-		{
-			board_controller->onGameWon();
-		}
+		void BoardService::showBoard() { board_controller->showBoard(); }
 
 		void BoardService::destroy()
 		{
 			delete(board_controller);
 		}
-
-		
-
 
 	}
 }

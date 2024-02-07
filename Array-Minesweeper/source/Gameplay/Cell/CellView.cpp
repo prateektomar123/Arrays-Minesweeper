@@ -87,7 +87,7 @@ namespace Gameplay
 
         void CellView::cellButtonCallback(ButtonType button_type)
         {
-            ServiceLocator::getInstance()->getGameplayService()->processCellInput(cell_controller, button_type);
+            ServiceLocator::getInstance()->getBoardService()->processCellInput(cell_controller, button_type);
         }
 	}
 }

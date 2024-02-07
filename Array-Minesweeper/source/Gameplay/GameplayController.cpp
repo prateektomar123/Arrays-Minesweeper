@@ -25,69 +25,23 @@ namespace Gameplay
         updateRemainingTime();
 
         if (isTimeOver())
-            processTimerOver();
+            endGame(GameResult::LOST);
     }
 
     void GameplayController::render() {  }
 
-    void GameplayController::processCellInput(CellController* cell_controller, ButtonType button_type)
-    {
-        board_service->processCellInput(cell_controller, button_type);
-    }
-
-    void GameplayController::processTimerOver()
-    {
-        switch (board_service->getBoardState())
-        {
-        case Gameplay::Board::BoardState::FIRST_CELL:
-            beginGameOverTimer();
-            break;
-        case Gameplay::Board::BoardState::PLAYING:
-            beginGameOverTimer();
-            break;
-        case Gameplay::Board::BoardState::COMPLETED:
-            gameOver();
-            break;
-        default:
-            break;
-        }
-    }
-
-    void GameplayController::beginGameOverTimer()
-    {
-        remaining_time = restart_time;
-        board_service->onBeginGameOverTimer();
-        board_service->setBoardState(BoardState::COMPLETED);
-    }
-
     void GameplayController::updateRemainingTime()
     {
-        if (game_end_type == GameEndType::WON)
+        if (game_result == GameResult::WON)
             return;
         remaining_time -= ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
     }
 
     bool GameplayController::isTimeOver() { return (remaining_time <= 1); }
 
-    void GameplayController::gameOver()
-    {
-        game_end_type = GameEndType::OVER; //--------------------------------------------------------USELESS
-        GameService::setGameState(GameState::CREDITS);
-    }
-
-    void GameplayController::gameWon()
-    {
-        game_end_type = GameEndType::WON;
-        board_service->onGameWon();
-    }
-
-
-
-
-
     void GameplayController::restart()
     {
-        game_end_type = GameEndType::NONE;
+        game_result = GameResult::NONE;
         board_service->resetBoard();
         remaining_time = max_level_duration;
     }
@@ -95,17 +49,47 @@ namespace Gameplay
     int GameplayController::getMinesCount() { return board_service->getMinesCount(); }
 
     float GameplayController::getRemainingTime() { return remaining_time; }
-    
-    void GameplayController::onCellOpen()
+
+    void GameplayController::endGame(GameResult result)
     {
-        if (board_service->areAllCellOpen())
+        switch(result)
         {
+    	case GameResult::WON:
             gameWon();
+            break;
+    	case GameResult::LOST:
+            gameLost();
+            break;
+        default:
+        	break;
         }
     }
 
-    void GameplayController::onBlast()
+    void GameplayController::gameWon()
     {
-        beginGameOverTimer();
+        game_result = GameResult::WON;
+        board_service->flagAllMines();
+        board_service->setBoardState(BoardState::COMPLETED);
+        ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
     }
+
+    void GameplayController::gameLost()
+    {
+        if(game_result == GameResult::NONE)
+        {
+            game_result = GameResult::LOST;
+            beginGameOverTimer();
+            board_service->showBoard();
+            board_service->setBoardState(BoardState::COMPLETED);
+        }
+        else
+        {
+            showCredits();
+        }
+
+    }
+
+    void GameplayController::beginGameOverTimer() { remaining_time = restart_time; }
+
+    void GameplayController::showCredits() { GameService::setGameState(GameState::CREDITS); }
 }
