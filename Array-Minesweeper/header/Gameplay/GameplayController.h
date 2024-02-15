@@ -19,7 +19,7 @@ namespace Gameplay
     {
     private:
         const float max_level_duration = 301.0f;
-        const float restart_time = 11.f;
+        const float game_over_time = 11.f;
         BoardService* board_service;
 
         float remaining_time;

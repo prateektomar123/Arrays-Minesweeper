@@ -89,7 +89,7 @@ namespace Gameplay
 
     }
 
-    void GameplayController::beginGameOverTimer() { remaining_time = restart_time; }
+    void GameplayController::beginGameOverTimer() { remaining_time = game_over_time; }
 
     void GameplayController::showCredits() { GameService::setGameState(GameState::CREDITS); }
 }
