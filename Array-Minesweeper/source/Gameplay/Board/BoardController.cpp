@@ -107,7 +107,7 @@ namespace Gameplay
 		void BoardController::populateMines(sf::Vector2i cell_position)
 		{
 			// Co-ordinate distribution i.e. selecting random position for mines.
-			std::uniform_int_distribution<int> x_distribution(0, number_of_colums - 1);
+			std::uniform_int_distribution<int> x_distribution(0, number_of_colums - 1); //Subtracted -1 because index in an array ranges from 0 to size-1x
 			std::uniform_int_distribution<int> y_distribution(0, number_of_rows - 1);
 
 			// Generate mines.
@@ -116,8 +116,8 @@ namespace Gameplay
 				int i = static_cast<int>(x_distribution(random_engine));
 				int j = static_cast<int>(y_distribution(random_engine));
 
-				// If the cell is already mine or it's a cell that the player wants to open.
-				if (board[i][j]->getCellType() == CellType::MINE || (cell_position.x == i && cell_position.y == j)) a--;
+				// If the cell is already a mine or it's the same cell that the player wants to open. Run the loop an extra time
+				if (board[i][j]->getCellType() == CellType::MINE || (cell_position.x == i && cell_position.y == j)) a--; //a-- runs a loop 1 extra time
 				else board[i][j]->setCellType(CellType::MINE);
 			}
 		}
@@ -130,7 +130,7 @@ namespace Gameplay
 				{
 					if (board[a][b]->getCellType() != CellType::MINE)
 					{
-						CellType type = static_cast<CellType>(countMinesAround(sf::Vector2i(a, b)));
+						CellType type = static_cast<CellType>(countMinesAround(sf::Vector2i(a, b))); //Converting mine count into CellType
 						board[a][b]->setCellType(type);
 					}
 				}
@@ -145,7 +145,9 @@ namespace Gameplay
 			{
 				for (int b = -1; b < 2; b++)
 				{
+					//If its the current cell, or cell position is not valid, then the loop will skip
 					if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b))) continue;
+					
 					if (board[a + cell_position.x][b + cell_position.y]->getCellType() == CellType::MINE) mines_around++;
 				}
 			}
