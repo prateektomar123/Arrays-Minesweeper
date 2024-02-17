@@ -247,7 +247,7 @@ namespace Gameplay
 					if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(a + cell_position.x, b + cell_position.y))) continue;
 
 					sf::Vector2i next_cell_position = sf::Vector2i(a + cell_position.x, b + cell_position.y);
-					if (board[cell_position.x][cell_position.y]->getCellType() == CellType::EMPTY) openEmptyCells(next_cell_position);
+					openCell(next_cell_position);
 				}
 			}
 		}
