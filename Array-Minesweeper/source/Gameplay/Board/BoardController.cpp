@@ -117,8 +117,8 @@ namespace Gameplay
 				int j = static_cast<int>(y_distribution(random_engine));
 
 				// If the cell is already a mine or it's the same cell that the player wants to open, the loop will run an extra time
-				if (board[i][j]->getCellType() == CellType::MINE || (cell_position.x == i && cell_position.y == j)) a--;
-				else board[i][j]->setCellType(CellType::MINE);
+				if (board[i][j]->getCellValue() == CellValue::MINE || (cell_position.x == i && cell_position.y == j)) a--;
+				else board[i][j]->setCellValue(CellValue::MINE);
 			}
 		}
 
@@ -128,10 +128,10 @@ namespace Gameplay
 			{
 				for (int b = 0; b < number_of_colums; b++)
 				{
-					if (board[a][b]->getCellType() != CellType::MINE)
+					if (board[a][b]->getCellValue() != CellValue::MINE)
 					{
-						CellType type = static_cast<CellType>(countMinesAround(sf::Vector2i(a, b)));
-						board[a][b]->setCellType(type);
+						CellValue value = static_cast<CellValue>(countMinesAround(sf::Vector2i(a, b)));
+						board[a][b]->setCellValue(value);
 					}
 				}
 			}
@@ -146,7 +146,7 @@ namespace Gameplay
 				for (int b = -1; b < 2; b++)
 				{
 					if ((a == 0 && b == 0) || !isValidCellPosition(sf::Vector2i(cell_position.x + a, cell_position.y + b))) continue;
-					if (board[a + cell_position.x][b + cell_position.y]->getCellType() == CellType::MINE) mines_around++;
+					if (board[a + cell_position.x][b + cell_position.y]->getCellValue() == CellValue::MINE) mines_around++;
 				}
 			}
 
@@ -194,7 +194,7 @@ namespace Gameplay
 			{
 				for (int col = 0; col < number_of_colums; ++col)
 				{
-					if (board[row][col]->getCellType() == CellType::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
+					if (board[row][col]->getCellValue() == CellValue::MINE && board[row][col]->getCellState() != CellState::FLAGGED)
 						flagCell(sf::Vector2i(row, col));
 				}
 			}
@@ -202,12 +202,12 @@ namespace Gameplay
 
 		void BoardController::processCellType(sf::Vector2i cell_position)
 		{
-			switch (board[cell_position.x][cell_position.y]->getCellType())
+			switch (board[cell_position.x][cell_position.y]->getCellValue())
 			{
-			case::Gameplay::Cell::CellType::EMPTY:
+			case::Gameplay::Cell::CellValue::EMPTY:
 				processEmptyCell(cell_position);
 				break;
-			case::Gameplay::Cell::CellType::MINE:
+			case::Gameplay::Cell::CellValue::MINE:
 				processMineCell(cell_position);
 				break;
 			default:
