@@ -8,7 +8,7 @@ namespace Gameplay
         class CellView;
         class CellModel;
         enum class CellState;
-        enum class CellType;
+        enum class CellValue;
 
         class CellController
         {
@@ -30,7 +30,7 @@ namespace Gameplay
             void openCell();
 
             CellState getCellState();
-            CellType getCellType();
+            CellValue getCellValue();
             sf::Vector2i getCellPosition();
             int getMinesAround();
 

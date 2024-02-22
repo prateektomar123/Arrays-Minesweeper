@@ -66,9 +66,9 @@ namespace Gameplay
 			return cell_model->getCellState();
 		}
 
-		CellType CellController::getCellType()
+		CellValue CellController::getCellValue()
 		{
-			return cell_model->getCellType();
+			return cell_model->getCellValue();
 		}
 
 		sf::Vector2i CellController::getCellPosition()
