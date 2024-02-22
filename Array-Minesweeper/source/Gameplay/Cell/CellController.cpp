@@ -78,7 +78,7 @@ namespace Gameplay
 
 		CellType CellController::getCellType()
 		{
-			return cell_model->getCellType();
+			return cell_model->getCellValue();
 		}
 
 		void CellController::setCellType(CellType type)

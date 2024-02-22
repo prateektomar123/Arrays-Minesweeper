@@ -62,7 +62,7 @@ namespace Gameplay
 
         void CellView::setCellTexture()
         {
-            int index = static_cast<int>(cell_controller->getCellType());
+            int index = static_cast<int>(cell_controller->getCellValue());
 
             switch (cell_controller->getCellState())
             {

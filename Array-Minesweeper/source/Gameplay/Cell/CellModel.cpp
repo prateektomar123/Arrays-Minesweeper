@@ -22,14 +22,14 @@ namespace Gameplay
 			cell_state = state;
 		}
 
-		CellType CellModel::getCellType()
+		CellValue CellModel::getCellValue()
 		{
-			return cell_type;
+			return cell_value;
 		}
 
-		void CellModel::setCellType(CellType type)
+		void CellModel::setCellValue(CellValue value)
 		{
-			cell_type = type;
+			cell_value = value;
 		}
 
 		sf::Vector2i CellModel::getCellPosition()
@@ -55,7 +55,7 @@ namespace Gameplay
 		void CellModel::reset()
 		{
 			cell_state = CellState::HIDDEN;
-			cell_type = CellType::EMPTY;
+			cell_value = CellValue::EMPTY;
 			mines_around = 0;
 		}
 	}

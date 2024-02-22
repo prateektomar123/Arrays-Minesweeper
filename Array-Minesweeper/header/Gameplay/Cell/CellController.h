@@ -8,7 +8,7 @@ namespace Gameplay
         class CellView;
         class CellModel;
         enum class CellState;
-        enum class CellType;
+        enum class CellValue;
 
         class CellController
         {

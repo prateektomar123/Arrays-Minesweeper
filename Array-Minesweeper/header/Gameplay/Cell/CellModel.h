@@ -12,7 +12,7 @@ namespace Gameplay
             FLAGGED,
         };
 
-        enum class CellType
+        enum class CellValue
         {
             EMPTY,
             ONE,
@@ -30,7 +30,7 @@ namespace Gameplay
         {
         private:
             CellState cell_state;
-            CellType cell_type;
+            CellValue cell_value;
 
             sf::Vector2i position;
             int mines_around;
@@ -42,8 +42,8 @@ namespace Gameplay
             CellState getCellState();
             void setCellState(CellState state);
 
-            CellType getCellType();
-            void setCellType(CellType type);
+            CellValue getCellValue();
+            void setCellValue(CellValue value);
 
             sf::Vector2i getCellPosition();
             void setCellPosition(sf::Vector2i grid_position);
