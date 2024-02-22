@@ -18,6 +18,8 @@ namespace Global
 
 	const sf::String Config::restart_button_texture_path = "assets/textures/restart_button.png";
 
+	const sf::String Config::menu_button_texture_path = "assets/textures/menu_button.png";
+
 	const sf::String Config::bubble_bobble_font_path = "assets/fonts/bubbleBobble.ttf";
 
 	const sf::String Config::DS_DIGIB_font_path = "assets/fonts/DS_DIGIB.ttf";
@@ -30,7 +32,7 @@ namespace Global
 
 	const sf::String Config::flag_sound_path = "assets/sounds/flag_sound.wav";
 	
+	const sf::String Config::explosion_sound_path = "assets/sounds/explosion_sound.wav";
 
-	const sf::String Config::menu_button_texture_path = "assets/textures/menu_button.png";
-
+	const sf::String Config::game_won_sound_path = "assets/sounds/game_won_sound.wav";
 }
