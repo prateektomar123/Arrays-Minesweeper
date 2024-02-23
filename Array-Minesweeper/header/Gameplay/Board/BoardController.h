@@ -68,7 +68,7 @@ namespace Gameplay
             void openCell(sf::Vector2i cell_position);
             bool areAllCellOpen();
 
-            void processCellType(sf::Vector2i cell_position);
+            void processCellValue(sf::Vector2i cell_position);
             void processEmptyCell(sf::Vector2i cell_position);
             void processMineCell(sf::Vector2i cell_position);
 

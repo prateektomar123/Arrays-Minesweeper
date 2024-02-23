@@ -180,7 +180,7 @@ namespace Gameplay
 					board_state = BoardState::PLAYING;
 				}
 
-				processCellType(cell_position);
+				processCellValue(cell_position);
 				board[cell_position.x][cell_position.y]->openCell();
 
 				if (areAllCellOpen())
@@ -200,7 +200,7 @@ namespace Gameplay
 			}
 		}
 
-		void BoardController::processCellType(sf::Vector2i cell_position)
+		void BoardController::processCellValue(sf::Vector2i cell_position)
 		{
 			switch (board[cell_position.x][cell_position.y]->getCellValue())
 			{
