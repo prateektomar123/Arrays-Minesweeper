@@ -37,7 +37,6 @@ namespace Gameplay
             void setCellValue(CellValue value);
 
             sf::Vector2i getCellPosition();
-            int getMinesAround();
 
             void reset();
         };

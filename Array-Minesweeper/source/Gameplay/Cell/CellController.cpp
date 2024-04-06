@@ -91,11 +91,6 @@ namespace Gameplay
 			return cell_model->getCellPosition();
 		}
 
-		int CellController::getMinesAround()
-		{
-			return cell_model->getMinesAround();
-		}
-
 		void CellController::reset()
 		{
 			cell_model->reset();
