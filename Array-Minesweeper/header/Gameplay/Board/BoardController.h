@@ -29,9 +29,9 @@ namespace Gameplay
 
             void createBoard();
             void initializeCells();
-            void destroy();
             void resetBoard();
             void deleteBoard();
+            void destroy();
         };
     }
 }

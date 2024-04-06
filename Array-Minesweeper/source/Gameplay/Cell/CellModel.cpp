@@ -42,21 +42,10 @@ namespace Gameplay
 			position = grid_position;
 		}
 
-		int CellModel::getMinesAround()
-		{
-			return mines_around;
-		}
-
-		void CellModel::setMinesAround(int mine_count)
-		{
-			mines_around = mine_count;
-		}
-
 		void CellModel::reset()
 		{
 			cell_state = CellState::HIDDEN;
 			cell_value = CellValue::EMPTY;
-			mines_around = 0;
 		}
 	}
 }
