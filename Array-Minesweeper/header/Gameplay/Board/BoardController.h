@@ -1,13 +1,13 @@
 #pragma once
 #include <sfml/Graphics.hpp>
-#include "../../header/UI/UIElement/ButtonView.h"
-#include "BoardView.h"
-
+#include "../../header/Gameplay/Cell/CellController.h"
 
 namespace Gameplay
 {
     namespace Board
     {
+        class BoardView;
+
         class BoardController
         {
         public:
@@ -25,10 +25,12 @@ namespace Gameplay
 
         private:
             BoardView* board_view;
+            Cell::CellController* cell;
 
-            void resetBoard();
             void createBoard();
+            void initializeCells();
             void destroy();
+            void resetBoard();
             void deleteBoard();
         };
     }

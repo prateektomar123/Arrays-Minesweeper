@@ -159,6 +159,9 @@
     <ClInclude Include="header\Gameplay\Board\BoardController.h" />
     <ClInclude Include="header\Gameplay\Board\BoardService.h" />
     <ClInclude Include="header\Gameplay\Board\BoardView.h" />
+    <ClInclude Include="header\Gameplay\Cell\CellController.h" />
+    <ClInclude Include="header\Gameplay\Cell\CellModel.h" />
+    <ClInclude Include="header\Gameplay\Cell\CellView.h" />
     <ClInclude Include="header\Gameplay\GameplayController.h" />
     <ClInclude Include="header\Gameplay\GameplayService.h" />
     <ClInclude Include="header\Main\GameService.h" />
@@ -177,6 +180,9 @@
     <ClInclude Include="header\UI\UIElement\UIView.h" />
     <ClInclude Include="header\UI\UIService.h" />
     <ClInclude Include="header\UI\Instructions\InstructionsScreenUIController.h" />
+    <ClInclude Include="source\Gameplay\Cell\CellController.cpp" />
+    <ClInclude Include="source\Gameplay\Cell\CellModel.cpp" />
+    <ClInclude Include="source\Gameplay\Cell\CellView.cpp" />
     <ClInclude Include="source\Gameplay\GameplayController.cpp" />
     <ClInclude Include="source\Gameplay\GameplayService.cpp" />
   </ItemGroup>
