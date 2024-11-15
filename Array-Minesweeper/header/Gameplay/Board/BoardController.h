@@ -1,5 +1,7 @@
 #pragma once
 #include <sfml/Graphics.hpp>
+#include "../../header/UI/UIElement/ButtonView.h"
+#include "BoardView.h"
 
 
 namespace Gameplay
@@ -24,6 +26,7 @@ namespace Gameplay
         private:
             BoardView* board_view;
 
+            void resetBoard();
             void createBoard();
             void destroy();
             void deleteBoard();
