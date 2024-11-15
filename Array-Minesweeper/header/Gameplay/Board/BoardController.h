@@ -22,6 +22,8 @@ namespace Gameplay
             void reset();
 
         private:
+            BoardView* board_view;
+
             void createBoard();
             void destroy();
             void deleteBoard();
