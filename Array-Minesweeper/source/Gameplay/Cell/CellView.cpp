@@ -38,13 +38,15 @@ namespace Gameplay
             cell_button->initialize("Cell", Config::cells_texture_path, width * slice_count, height, cell_screen_position);
         }
 
-        sf::Vector2f CellView::getCellScreenPosition()
-        {
-            float x_screen_position = cell_left_offset;
-            float y_screen_position = cell_top_offset;
+        sf::Vector2f CellView::getCellScreenPosition(float width, float height)
+		{
+            sf::Vector2i cell_index = cell_controller->getCellPosition();
+
+            float x_screen_position = cell_left_offset + cell_index.y * width;
+            float y_screen_position = cell_top_offset + cell_index.x * height;
 
             return sf::Vector2f(x_screen_position, y_screen_position);
-        }
+		}
         void CellView::setCellTexture()
         {
             int index = static_cast<int>(cell_controller->getCellValue());

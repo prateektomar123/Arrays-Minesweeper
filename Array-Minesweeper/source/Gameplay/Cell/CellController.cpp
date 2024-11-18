@@ -10,9 +10,11 @@ namespace Gameplay
 	{
 		using namespace Global;
 
-		CellController::CellController(sf::Vector2i grid_position)
+		CellController::CellController(sf::Vector2i grid_position, int cell_index)
 		{
 			cell_model = new CellModel(grid_position);
+			cell_view = new CellView(this);
+			cell_model = new CellModel(cell_index);
 			cell_view = new CellView(this);
 		}
 
@@ -30,7 +32,10 @@ namespace Gameplay
 		{
 			cell_view->update();
 		}
-
+		int CellController::getCellIndex()
+		{
+			return cell_model->cell_index;
+		}
 		void CellController::render()
 		{
 			cell_view->render();

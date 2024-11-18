@@ -13,6 +13,9 @@ namespace Gameplay
             const float cell_top_offset = 274.f;
             const float cell_left_offset = 583.f;
 
+            const float cell_texture_width = 384;
+            const float cell_texture_height = 32;
+
             const int tile_size = 32;
             const int slice_count = 12;
 
