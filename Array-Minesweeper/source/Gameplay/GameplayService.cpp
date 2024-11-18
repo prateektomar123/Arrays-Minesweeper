@@ -41,7 +41,10 @@ namespace Gameplay
 	{
 		return gameplay_controller->getRemainingTime();
 	}
-	
+	int GameplayService::getMinesCount()
+	{
+		return gameplay_controller->getMinesCount();
+	}
 	void GameplayService::destroy()
 	{
 		delete(gameplay_controller);

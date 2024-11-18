@@ -1,11 +1,15 @@
 #pragma once
 #include <sfml/Graphics.hpp>
 #include "../../header/Gameplay/Cell/CellController.h"
+#include "../Cell/CellView.h"
+#include "../Cell/CellController.h"
+#include "../Cell/CellView.h"
 
 namespace Gameplay
 {
     namespace Board
     {
+
         class BoardView;
 
         class BoardController
@@ -18,6 +22,8 @@ namespace Gameplay
             BoardController();
             ~BoardController();
 
+            int getMinesCount();
+
             void initialize();
             void update();
             void render();
@@ -27,6 +33,8 @@ namespace Gameplay
             BoardView* board_view;
             Cell::CellController* cell;
 
+
+            int flagged_cells;
             void createBoard();
             void initializeCells();
             void destroy();
