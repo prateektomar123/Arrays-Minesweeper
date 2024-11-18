@@ -15,7 +15,7 @@ namespace Gameplay
     {
         using namespace UI::UIElement;
         using namespace Global;
-        
+        using namespace Sound;
 
         CellView::CellView(CellController* controller)
         {
@@ -30,12 +30,13 @@ namespace Gameplay
             initializeButtonImage(width, height);
         }
 
-
         void CellView::initializeButtonImage(float width, float height)
         {
-            sf::Vector2f cell_screen_position = getCellScreenPosition();
+            sf::Vector2f cell_screen_position = getCellScreenPosition(width, height);
 
             cell_button->initialize("Cell", Config::cells_texture_path, width * slice_count, height, cell_screen_position);
+
+            registerButtonCallback();
         }
 
         sf::Vector2f CellView::getCellScreenPosition(float width, float height)
@@ -47,6 +48,18 @@ namespace Gameplay
 
             return sf::Vector2f(x_screen_position, y_screen_position);
         }
+
+        void CellView::update()
+        {
+            cell_button->update();
+        }
+
+        void CellView::render()
+        {
+            setCellTexture();
+            cell_button->render();
+        }
+
         void CellView::setCellTexture()
         {
             int index = static_cast<int>(cell_controller->getCellValue());
@@ -66,14 +79,23 @@ namespace Gameplay
                 break;
             }
         }
-        void CellView::update()
+
+        void CellView::registerButtonCallback()
         {
-            cell_button->update();
+            cell_button->registerCallbackFuntion(std::bind(&CellView::cellButtonCallback, this, std::placeholders::_1));
         }
 
-        void CellView::render()
+        void CellView::cellButtonCallback(ButtonType button_type)
         {
-            cell_button->render();
+            switch(button_type)
+            {
+            case UI::UIElement::ButtonType::LEFT_MOUSE_BUTTON:
+                cell_controller->openCell();
+                break;
+            case UI::UIElement::ButtonType::RIGHT_MOUSE_BUTTON:
+                cell_controller->flagCell();
+                break;
+            }
         }
     }
 }
