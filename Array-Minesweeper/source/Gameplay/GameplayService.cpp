@@ -37,10 +37,11 @@ namespace Gameplay
 	{
 		
 	}
-
+	float GameplayService::getRemainingTime()
+	{
+		return gameplay_controller->getRemainingTime();
+	}
 	
-	
-
 	void GameplayService::destroy()
 	{
 		delete(gameplay_controller);
