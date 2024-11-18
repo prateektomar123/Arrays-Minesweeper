@@ -10,6 +10,8 @@ namespace Gameplay
         class CellView
         {
         private:
+            const float cell_top_offset = 274.f;
+            const float cell_left_offset = 583.f;
 
             const int tile_size = 32;
             const int slice_count = 12;
@@ -18,6 +20,8 @@ namespace Gameplay
             CellController* cell_controller;
 
             void initializeButtonImage(float width, float height);
+            sf::Vector2f getCellScreenPosition();
+            sf::Vector2f getCellScreenPosition(float width, float height);
             void setCellTexture();
 
         public:
