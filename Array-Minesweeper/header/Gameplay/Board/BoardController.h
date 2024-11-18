@@ -14,7 +14,7 @@ namespace Gameplay
             static const int number_of_rows = 9;
             static const int number_of_colums = 9;
             static const int mines_count = 8;
-            CellController* cells[number_of_colums];
+            CellController* board[number_of_rows][number_of_colums];
             BoardController();
             ~BoardController();
 
