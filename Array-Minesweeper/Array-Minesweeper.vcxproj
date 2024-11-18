@@ -167,7 +167,9 @@
     <ClInclude Include="header\Main\GameService.h" />
     <ClInclude Include="header\Global\Config.h" />
     <ClInclude Include="header\Graphics\GraphicService.h" />
+    <ClInclude Include="header\Time\TimeService.h" />
     <ClInclude Include="header\UI\Credits\CreditsScreenUIController.h" />
+    <ClInclude Include="header\UI\Gameplay\GameplayUIController.h" />
     <ClInclude Include="header\UI\Interface\IUIController.h" />
     <ClInclude Include="header\UI\MainMenu\MainMenuUIController.h" />
     <ClInclude Include="header\Global\ServiceLocator.h" />
@@ -185,6 +187,8 @@
     <ClInclude Include="source\Gameplay\Cell\CellView.cpp" />
     <ClInclude Include="source\Gameplay\GameplayController.cpp" />
     <ClInclude Include="source\Gameplay\GameplayService.cpp" />
+    <ClInclude Include="source\Time\TimeService.cpp" />
+    <ClInclude Include="source\UI\Gameplay\GameplayUIController.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

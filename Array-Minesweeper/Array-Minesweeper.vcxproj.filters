@@ -167,5 +167,17 @@
     <ClInclude Include="source\Gameplay\Cell\CellView.cpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="header\UI\Gameplay\GameplayUIController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\UI\Gameplay\GameplayUIController.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header\Time\TimeService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\Time\TimeService.cpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
