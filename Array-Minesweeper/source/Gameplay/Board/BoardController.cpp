@@ -183,7 +183,8 @@ namespace Gameplay
 				processCellValue(cell_position);
 				board[cell_position.x][cell_position.y]->openCell();
 
-				
+				if (areAllCellOpen())
+					ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::WON);
 			}
 		}
 

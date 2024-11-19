@@ -1,5 +1,4 @@
 #include "../../header/Gameplay/Cell/CellModel.h"
-#include <SFML/System/Vector2.hpp>
 
 namespace Gameplay
 {
@@ -7,6 +6,7 @@ namespace Gameplay
 	{
 		CellModel::CellModel(sf::Vector2i grid_position)
 		{
+			reset();
 			position = grid_position;
 		}
 
@@ -31,14 +31,17 @@ namespace Gameplay
 		{
 			cell_value = value;
 		}
+
 		sf::Vector2i CellModel::getCellPosition()
 		{
 			return position;
 		}
+
 		void CellModel::setCellPosition(sf::Vector2i grid_position)
 		{
 			position = grid_position;
 		}
+
 		void CellModel::reset()
 		{
 			cell_state = CellState::HIDDEN;

@@ -20,37 +20,39 @@ namespace Gameplay
 
 	void GameplayService::initialize()
 	{
-		
+		gameplay_controller->initialize();
 	}
 
 	void GameplayService::update()
 	{
-		
+		gameplay_controller->update();
 	}
 
 	void GameplayService::render()
 	{
-		
+		gameplay_controller->render();
 	}
 
 	void GameplayService::startGame()
 	{
-		
+		gameplay_controller->restart();
 	}
 
 	void GameplayService::endGame(GameResult result)
 	{
-		// This function forwards the result of the game to the controller's endGame function.
-		gameplay_controller->endGame(result); // Trigger the endGame logic in the controller.
+		gameplay_controller->endGame(result);
 	}
-	float GameplayService::getRemainingTime()
-	{
-		return gameplay_controller->getRemainingTime();
-	}
+
 	int GameplayService::getMinesCount()
 	{
 		return gameplay_controller->getMinesCount();
 	}
+
+	float GameplayService::getRemainingTime()
+	{
+		return gameplay_controller->getRemainingTime();
+	}
+
 	void GameplayService::destroy()
 	{
 		delete(gameplay_controller);

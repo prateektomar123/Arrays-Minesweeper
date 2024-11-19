@@ -1,8 +1,10 @@
 #pragma once
+#include <sfml/Graphics.hpp>
+
 namespace Gameplay
 {
-	namespace Cell
-	{
+    namespace Cell
+    {
         enum class CellState
         {
             HIDDEN,
@@ -29,8 +31,8 @@ namespace Gameplay
         private:
             CellState cell_state;
             CellValue cell_value;
-            sf::Vector2i position;
 
+            sf::Vector2i position;
 
         public:
             CellModel(sf::Vector2i grid_position);
@@ -42,12 +44,10 @@ namespace Gameplay
             CellValue getCellValue();
             void setCellValue(CellValue value);
 
-            int getCellIndex();
-
             sf::Vector2i getCellPosition();
             void setCellPosition(sf::Vector2i grid_position);
-            
+
             void reset();
         };
-	}
+    }
 }

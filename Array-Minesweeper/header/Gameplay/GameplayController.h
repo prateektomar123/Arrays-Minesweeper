@@ -1,49 +1,49 @@
 #pragma once
 #include "../../header/Gameplay/Board/BoardService.h"
+#include "../../header/Gameplay/Cell/CellController.h"
 #include "../../header/UI/UIElement/ButtonView.h"
 #include <SFML/Graphics.hpp>
 
 namespace Gameplay
 {
-	using namespace Gameplay::Board;
-	class GameplayController
-	{
-		enum class GameResult
-		{
-			NONE,
-			WON,
-			LOST
-		};
+    using namespace Gameplay::Board;
 
-	private:
-		const float max_level_duration = 301.0f;
-		const float game_over_time = 11.f;
-		BoardService* board_service;
-		float remaining_time;
+    enum class GameResult
+    {
+        NONE,
+        WON,
+        LOST
+    };
 
-		GameResult game_result;
+    class GameplayController
+    {
+    private:
+        const float max_level_duration = 301.0f;
+        const float game_over_time = 11.f;
+        BoardService* board_service;
 
-		void updateRemainingTime();
+        float remaining_time;
+        GameResult game_result;
 
-		void beginGameOverTimer();
+        void updateRemainingTime();
+        bool isTimeOver();
+        void showCredits();;
+        void beginGameOverTimer();
 
-	public:
-		~GameplayController();
+        void gameWon();
+        void gameLost();
 
-		void initialize();
-		void update();
-		bool isTimeOver();
-		void endGame(GameResult result);
-		void gameLost();
-		void gameWon();
-		void render();
+    public:
+        ~GameplayController();
 
-		void restart();
-		
+        void initialize();
+        void update();
+        void render();
 
-		void showCredits();
+        void restart();
+        void endGame(GameResult result);
 
-		int getMinesCount();
-		float getRemainingTime();
-	};
+        int getMinesCount();
+        float getRemainingTime();
+    };
 }

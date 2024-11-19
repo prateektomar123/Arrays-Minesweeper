@@ -1,81 +1,42 @@
-#include "../../header/Main/GameService.h"
-#include "../../header/Graphics/GraphicService.h"
-#include "../../header/Event/EventService.h"
-#include "../../header/UI/UIService.h"
+#include "../../header/Time/TimeService.h"
 
-namespace Main
+namespace Time
 {
-	using namespace Global;
-	using namespace Event;
-	using namespace UI;
-
-	GameState GameService::current_state = GameState::BOOT;
-
-	GameService::GameService()
+	void TimeService::initialize()
 	{
-		service_locator = nullptr;
+		previous_time = std::chrono::steady_clock::now();
+		delta_time = 0;
 	}
 
-	GameService::~GameService()
+	void TimeService::update()
 	{
-		destroy();
+		updateDeltaTime();
 	}
 
-	void GameService::ignite()
+	float TimeService::getDeltaTime()
 	{
-		service_locator = ServiceLocator::getInstance();
-		initialize();
+		return delta_time;
 	}
 
-	void GameService::initialize()
+	void TimeService::updateDeltaTime()
 	{
-		service_locator->initialize();
-		initializeVariables();
-		showSplashScreen();
+		delta_time = calculateDeltaTime();
+		updatePreviousTime();
 	}
 
-	void GameService::initializeVariables()
+	float TimeService::calculateDeltaTime()
 	{
-		game_window = service_locator->getGraphicService()->getGameWindow();
+		// Calculate time difference in microseconds between the current and previous frame.
+		int delta = std::chrono::duration_cast<std::chrono::microseconds>(
+			std::chrono::steady_clock::now() - previous_time).count();
+
+		// To convert delta time from microseconds into seconds.
+		return static_cast<float>(delta) / static_cast<float>(1000000);
 	}
 
-	void GameService::showSplashScreen()
+	// Update previous_time to the current time
+	void TimeService::updatePreviousTime()
 	{
-		setGameState(GameState::SPLASH_SCREEN);
-		ServiceLocator::getInstance()->getUIService()->showScreen();
-	}
-
-	bool GameService::isRunning() { return service_locator->getGraphicService()->isGameWindowOpen(); }
-
-	void GameService::setGameState(GameState new_state)
-	{
-		current_state = new_state;
-	}
-
-	GameState GameService::getGameState()
-	{
-		return current_state;
-	}
-
-	// Main Game Loop.
-	void GameService::update()
-	{
-		// Process Events.
-		service_locator->getEventService()->processEvents();
-
-		// Update Game Logic.
-		service_locator->update();
-	}
-
-	void GameService::render()
-	{
-		game_window->clear();
-		service_locator->render();
-		game_window->display();
-	}
-
-	void GameService::destroy()
-	{
-		service_locator->deleteServiceLocator();
+		previous_time = std::chrono::steady_clock::now();
 	}
 }

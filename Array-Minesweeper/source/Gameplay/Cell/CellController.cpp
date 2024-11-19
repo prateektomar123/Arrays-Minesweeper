@@ -11,11 +11,9 @@ namespace Gameplay
 		using namespace Global;
 		using namespace Sound;
 
-		CellController::CellController(sf::Vector2i grid_position, int cell_index)
+		CellController::CellController(sf::Vector2i grid_position)
 		{
 			cell_model = new CellModel(grid_position);
-			cell_view = new CellView(this);
-			cell_model = new CellModel(cell_index);
 			cell_view = new CellView(this);
 		}
 
@@ -33,21 +31,20 @@ namespace Gameplay
 		{
 			cell_view->update();
 		}
-		
+
 		void CellController::render()
 		{
 			cell_view->render();
 		}
-		void CellController::openCell()
-		{
-			setCellState(CellState::OPEN);
-		}
-		bool CellController::canOpenCell()
-		{
-			return cell_model->getCellState() != CellState::FLAGGED && cell_model->getCellState() != CellState::OPEN;
-		}
+
 		void CellController::flagCell()
 		{
+			if (ServiceLocator::getInstance()->getBoardService()->getBoardState() == Gameplay::Board::BoardState::COMPLETED)
+			{
+				cell_model->setCellState(CellState::FLAGGED);
+				return;
+			}
+
 			switch (cell_model->getCellState())
 			{
 			case::Gameplay::Cell::CellState::FLAGGED:
@@ -57,12 +54,26 @@ namespace Gameplay
 				cell_model->setCellState(CellState::FLAGGED);
 				break;
 			}
-
-			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::FLAG);
 		}
+
+		void CellController::openCell()
+		{
+			setCellState(CellState::OPEN);
+		}
+
+		bool CellController::canOpenCell()
+		{
+			return cell_model->getCellState() != CellState::FLAGGED && cell_model->getCellState() != CellState::OPEN;
+		}
+
 		CellState CellController::getCellState()
 		{
 			return cell_model->getCellState();
+		}
+
+		void CellController::setCellState(CellState state)
+		{
+			cell_model->setCellState(state);
 		}
 
 		CellValue CellController::getCellValue()
@@ -70,22 +81,16 @@ namespace Gameplay
 			return cell_model->getCellValue();
 		}
 
+		void CellController::setCellValue(CellValue value)
+		{
+			cell_model->setCellValue(value);
+		}
+
 		sf::Vector2i CellController::getCellPosition()
 		{
 			return cell_model->getCellPosition();
 		}
-		void CellController::flagCell()
-		{
-			switch (cell_model->getCellState())
-			{
-			case::Gameplay::Cell::CellState::FLAGGED:
-				cell_model->setCellState(CellState::HIDDEN);
-				break;
-			case::Gameplay::Cell::CellState::HIDDEN:
-				cell_model->setCellState(CellState::FLAGGED);
-				break;
-			}
-		}
+
 		void CellController::reset()
 		{
 			cell_model->reset();
