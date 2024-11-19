@@ -23,11 +23,13 @@ namespace Gameplay
     void GameplayController::update()
     {
         updateRemainingTime();
-        if (Gameplay::GameplayController::isTimeOver())
+        if (isTimeOver())
             endGame(GameResult::LOST);
 
         
     }
+    bool GameplayController::isTimeOver() { return (remaining_time <= 1); }
+
     void GameplayController::endGame(GameResult result)
     {
         // The switch statement handles the different possible outcomes of the game.
@@ -54,7 +56,9 @@ namespace Gameplay
 
     void GameplayController::gameWon()
     {
-        // Implement game won specific logic here.
+        game_result = GameResult::WON;
+        
+        ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
     }
 
     void GameplayController::render() {  }
