@@ -23,6 +23,8 @@ namespace Gameplay
     void GameplayController::update()
     {
         updateRemainingTime();
+        if (Gameplay::GameplayController::isTimeOver())
+            endGame(GameResult::LOST);
 
         
     }

@@ -32,6 +32,7 @@ namespace Gameplay
 
 		void initialize();
 		void update();
+		bool isTimeOver();
 		void endGame(GameResult result);
 		void gameLost();
 		void gameWon();
