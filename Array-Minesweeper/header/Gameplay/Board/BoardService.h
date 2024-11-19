@@ -1,5 +1,8 @@
 #pragma once
 #include "../../header/Gameplay/Board/BoardController.h"
+#include "../../UI/UIElement/ButtonView.h"
+#include "../Cell/CellView.h"
+#include "../Cell/CellController.h"
 
 namespace Gameplay
 {
@@ -20,6 +23,7 @@ namespace Gameplay
             void render();
 
             void resetBoard();
+            void processCellInput(CellController* cell_controller, ButtonType button_type);
         };
     }
 }

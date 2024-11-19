@@ -26,6 +26,7 @@ namespace Gameplay
 
             void initialize();
             void update();
+            void flagCell(sf::Vector2i cell_position);
             void render();
             void reset();
 
@@ -37,6 +38,8 @@ namespace Gameplay
             int flagged_cells;
             void createBoard();
             void initializeCells();
+            void openCell(sf::Vector2i cell_position);
+            void processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type);
             void destroy();
             void resetBoard();
             void deleteBoard();

@@ -87,15 +87,7 @@ namespace Gameplay
 
         void CellView::cellButtonCallback(ButtonType button_type)
         {
-            switch(button_type)
-            {
-            case UI::UIElement::ButtonType::LEFT_MOUSE_BUTTON:
-                cell_controller->openCell();
-                break;
-            case UI::UIElement::ButtonType::RIGHT_MOUSE_BUTTON:
-                cell_controller->flagCell();
-                break;
-            }
+            ServiceLocator::getInstance()->getBoardService()->processCellInput(cell_controller, button_type);
         }
     }
 }

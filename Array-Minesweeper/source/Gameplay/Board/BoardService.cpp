@@ -35,11 +35,11 @@ namespace Gameplay
 		{
 			board_controller->reset();
 		}
-		void BoardController::reset()
+		void BoardService::processCellInput(CellController* cell_controller, ButtonType button_type)
 		{
-			resetBoard();
-
+			board_controller->processCellInput(cell_controller, button_type);
 		}
+
 		void BoardService::destroy()
 		{
 			delete(board_controller);
