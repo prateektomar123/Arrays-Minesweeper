@@ -223,8 +223,8 @@ namespace Gameplay
 
 		void BoardController::processMineCell(sf::Vector2i cell_position)
 		{
-			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
-			ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::LOST);
+			/*ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::EXPLOSION);
+			ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::LOST);*/
 		}
 
 		void BoardController::openEmptyCells(sf::Vector2i cell_position)
